@@ -1,4 +1,4 @@
-# Research Support History Timeline (History-App)
+# 日本における科学研究政策史年表 (Chronology of Science and Research Policy in Japan)
 
 日本における科学技術政策と研究支援（URA等）の変遷を辿る、モダンなタイムライン・ウェブアプリケーションです。
 
