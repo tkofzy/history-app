@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Support History Timeline</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #009eb3;
+            /* URA-PORTAL cyan */
+            --accent: #ff007f;
+            /* Magenta */
+            --bg: #fafbfc;
+            /* Light background */
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text: #1a1e23;
+            --text-muted: #6e7781;
+            --border: rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            margin: 0;
+            letter-spacing: 0.2rem;
+            text-transform: uppercase;
+            color: var(--text);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 100px 0;
+        }
+
+        /* 中央の線 */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent), transparent);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        /* 年代表示 */
+        .year-indicator {
+            position: sticky;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 8rem;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.04);
+            z-index: 0;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .event-item {
+            width: 100%;
+            margin-bottom: 300px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .event-card {
+            width: 45%;
+            padding: 30px;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .event-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0, 158, 179, 0.15);
+        }
+
+        .event-item:nth-child(even) {
+            justify-content: flex-end;
+            padding-right: 10%;
+        }
+
+        .event-item:nth-child(odd) {
+            justify-content: flex-start;
+            padding-left: 10%;
+        }
+
+        .date-label {
+            font-size: 0.9rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0, 158, 179, 0.1);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-top: 15px;
+            border: 1px solid rgba(0, 158, 179, 0.2);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            opacity: 0.5;
+        }
+
+        .delete-btn:hover {
+            color: var(--accent);
+            opacity: 1;
+        }
+
+        footer {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            background: linear-gradient(to bottom, var(--bg), #e2e8f0);
+            color: var(--text-muted);
+        }
+
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: var(--text);
+            background: var(--card-bg);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            z-index: 999;
+            padding: 10px 20px;
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .back-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: #fff;
+        }
+
+        /* Filter Controls */
+        .filter-container {
+            position: sticky;
+            top: 20px;
+            z-index: 90;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            width: fit-content;
+            margin: -50px auto 50px auto;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-select,
+        .search-input {
+            background: #fff;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .filter-select:focus,
+        .search-input:focus {
+            border-color: var(--primary);
+        }
+
+        .filter-select option {
+            background: #fff;
+            color: var(--text);
+        }
+
+        .search-input {
+            width: 200px;
+        }
+
+        /* Add Event Modal & Button */
+        .add-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 158, 179, 0.3);
+            z-index: 100;
+            transition: transform 0.3s;
+        }
+
+        .add-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            color: var(--text);
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: #fafbfc;
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 5px;
+            color: var(--text);
+            font-family: inherit;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #00899c;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="header">
+        <h1>Historical Nav</h1>
+        <p>日本における研究支援の変遷を辿る</p>
+        <div style="margin-top: 50px; font-size: 0.8rem; opacity: 0.5;">SCROLL DOWN TO GO BACK IN TIME</div>
+    </section>
+
+    <!-- Filter Controls -->
+    <div class="filter-container">
+        <select id="category-filter" class="filter-select">
+            <option value="All">All Categories / 全て</option>
+            <option value="Policy">Policy / 政策・制度</option>
+            <option value="Organization">Organization / 組織・ネットワーク</option>
+            <option value="Infrastructure">Infrastructure / システム・基盤</option>
+        </select>
+        <input type="text" id="keyword-search" class="search-input" placeholder="Search keywords...">
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="year-indicator" id="sticky-year">2025</div>
+
+        <div id="events-wrapper">
+            <div id="loading-message"
+                style="text-align: center; font-size: 1.5rem; padding: 50px; color: var(--primary);">
+                Loading historical data...
+            </div>
+            <!-- Events will be injected here by JavaScript -->
+        </div>
+    </div>
+
+    <footer>
+        <p>AND THE JOURNEY CONTINUES...</p>
+    </footer>
+
+    <!-- Add Event Button -->
+    <div class="add-btn" id="add-event-btn" title="Add New Event">+</div>
+
+    <!-- Add Event Modal -->
+    <div class="modal-overlay" id="event-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Add Historical Event</h2>
+                <button class="close-btn" id="close-modal">&times;</button>
+            </div>
+            <form id="add-event-form">
+                <div class="form-group">
+                    <label for="event-year">Year (年度)</label>
+                    <input type="number" id="event-year" class="form-control" required min="1900" max="2100">
+                </div>
+                <div class="form-group">
+                    <label for="event-category">Category (カテゴリー)</label>
+                    <select id="event-category" class="form-control" required>
+                        <option value="Policy">Policy / 政策・制度</option>
+                        <option value="Organization">Organization / 組織・ネットワーク</option>
+                        <option value="Infrastructure">Infrastructure / システム・基盤</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="event-tag">Tag (タグ)</label>
+                    <input type="text" id="event-tag" class="form-control" list="existing-tags" required
+                        placeholder="e.g. 研究力強化">
+                    <datalist id="existing-tags"></datalist>
+                </div>
+                <div class="form-group">
+                    <label for="event-title">Title (出来事の名前)</label>
+                    <input type="text" id="event-title" class="form-control" required placeholder="e.g. 新しい制度の開始">
+                </div>
+                <div class="form-group">
+                    <label for="event-description">Description (説明)</label>
+                    <textarea id="event-description" class="form-control" required
+                        placeholder="出来事の詳細を記述してください..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Add Event to Timeline</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        const eventsWrapper = document.getElementById('events-wrapper');
+        const yearDisplay = document.getElementById('sticky-year');
+        const categoryFilter = document.getElementById('category-filter');
+        const keywordSearch = document.getElementById('keyword-search');
+
+        let allEventsData = []; // Store all fetched data globally
+
+        // Function to create DOM elements for an event
+        function createEventElement(eventData) {
+            const eventItem = document.createElement('div');
+            eventItem.className = 'event-item';
+            eventItem.setAttribute('data-year', eventData.year);
+            eventItem.setAttribute('data-category', eventData.category);
+
+            // Add delete button only for custom events (which have an 'id')
+            const deleteButtonHtml = eventData.id ? `<button class="delete-btn" onclick="deleteEvent(${eventData.id})" title="Delete Event">×</button>` : '';
+
+            eventItem.innerHTML = `
+                <div class="event-card">
+                    ${deleteButtonHtml}
+                    <span class="date-label">${eventData.year}</span>
+                    <h3 class="title">${eventData.title}</h3>
+                    <p class="description">${eventData.description}</p>
+                    <span class="tag">${eventData.tag}</span>
+                </div>
+            `;
+            return eventItem;
+        }
+
+        // Function to delete a custom event
+        window.deleteEvent = function (eventId) {
+            if (!confirm("この出来事を削除しますか？ (Are you sure you want to delete this event?)")) return;
+
+            // Remove from localStorage
+            let localEvents = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
+            localEvents = localEvents.filter(e => e.id !== eventId);
+            localStorage.setItem('customHistoryEvents', JSON.stringify(localEvents));
+
+            // Remove from global dataset
+            allEventsData = allEventsData.filter(e => e.id !== eventId);
+
+            // Re-render components
+            renderTimeline();
+            updateTagDatalist();
+        };
+
+        // Populate datalist with unique tags
+        function updateTagDatalist() {
+            const datalist = document.getElementById('existing-tags');
+            if (!datalist) return;
+
+            const uniqueTags = [...new Set(allEventsData.map(e => e.tag))].filter(Boolean);
+            datalist.innerHTML = '';
+
+            uniqueTags.forEach(tag => {
+                const option = document.createElement('option');
+                option.value = tag;
+                datalist.appendChild(option);
+            });
+        }
+
+        // Function to initialize GSAP animations
+        function initGSAP() {
+            // Kill all existing ScrollTriggers to prevent overlaps when filtering
+            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+            const events = document.querySelectorAll('.event-item');
+
+            // Set initial state for year indicator
+            if (events.length > 0) {
+                yearDisplay.innerText = events[0].getAttribute('data-year');
+            } else {
+                yearDisplay.innerText = "----";
+            }
+
+            events.forEach((event) => {
+                const year = event.getAttribute('data-year');
+
+                gsap.fromTo(event,
+                    { opacity: 0, y: 50 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        scrollTrigger: {
+                            trigger: event,
+                            start: "top 80%",
+                            end: "top 20%",
+                            scrub: true,
+                            onEnter: () => yearDisplay.innerText = year,
+                            onEnterBack: () => yearDisplay.innerText = year,
+                        }
+                    }
+                );
+            });
+
+            ScrollTrigger.refresh();
+        }
+
+        // Render timeline based on current filters
+        function renderTimeline() {
+            const selectedCategory = categoryFilter.value;
+            const keyword = keywordSearch.value.toLowerCase();
+
+            // Filter data
+            const filteredData = allEventsData.filter(event => {
+                const matchesCategory = selectedCategory === 'All' || event.category === selectedCategory;
+                const matchesKeyword = event.title.toLowerCase().includes(keyword) ||
+                    event.description.toLowerCase().includes(keyword) ||
+                    event.tag.toLowerCase().includes(keyword);
+                return matchesCategory && matchesKeyword;
+            });
+
+            // Clear wrapper
+            eventsWrapper.innerHTML = '';
+
+            if (filteredData.length === 0) {
+                eventsWrapper.innerHTML = `
+                    <div style="text-align: center; color: var(--text); padding: 50px; font-size: 1.2rem;">
+                        No matching events found. <br><span style="opacity: 0.5; font-size: 0.9rem;">検索条件に一致する出来事が見つかりませんでした。</span>
+                    </div>
+                `;
+            } else {
+                // Generate and append DOM elements
+                filteredData.forEach(event => {
+                    const el = createEventElement(event);
+                    eventsWrapper.appendChild(el);
+                });
+            }
+
+            // Re-initialize animations
+            setTimeout(initGSAP, 100);
+        }
+
+        // Modal Logic
+        const addEventBtn = document.getElementById('add-event-btn');
+        const eventModal = document.getElementById('event-modal');
+        const closeModalBtn = document.getElementById('close-modal');
+        const addEventForm = document.getElementById('add-event-form');
+
+        addEventBtn.addEventListener('click', () => {
+            eventModal.classList.add('active');
+        });
+
+        closeModalBtn.addEventListener('click', () => {
+            eventModal.classList.remove('active');
+        });
+
+        eventModal.addEventListener('click', (e) => {
+            if (e.target === eventModal) {
+                eventModal.classList.remove('active');
+            }
+        });
+
+        // Handle Form Submission
+        addEventForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Create new event object
+            const newEvent = {
+                id: Date.now(), // Unique ID so it can be deleted
+                year: parseInt(document.getElementById('event-year').value),
+                category: document.getElementById('event-category').value,
+                tag: document.getElementById('event-tag').value,
+                title: document.getElementById('event-title').value,
+                description: document.getElementById('event-description').value
+            };
+
+            // Save to localStorage
+            const localEvents = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
+            localEvents.push(newEvent);
+            localStorage.setItem('customHistoryEvents', JSON.stringify(localEvents));
+
+            // Add to active dataset and re-sort (descending year)
+            allEventsData.push(newEvent);
+            allEventsData.sort((a, b) => b.year - a.year);
+
+            // Reset form and close modal
+            addEventForm.reset();
+            eventModal.classList.remove('active');
+
+            // Re-render timeline with new data and updated tags
+            renderTimeline();
+            updateTagDatalist();
+        });
+
+        // Fetch data initially
+        async function loadHistoryData() {
+            try {
+                // Fetch JSON data
+                const response = await fetch('data/history.json');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const fetchedData = await response.json();
+
+                // Retrieve local data
+                const localData = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
+
+                // Combine and sort descending by year
+                allEventsData = [...fetchedData, ...localData];
+                allEventsData.sort((a, b) => b.year - a.year);
+
+                // Remove loading message
+                const loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) loadingMsg.remove();
+
+                // Initial render and populate tags
+                renderTimeline();
+                updateTagDatalist();
+
+            } catch (error) {
+                console.error("Error loading history data:", error);
+                eventsWrapper.innerHTML = `
+                    <div style="text-align: center; color: red; padding: 50px;">
+                        Error loading data. Please try again later.
+                    </div>
+                `;
+            }
+        }
+
+        // Event Listeners for Filters
+        categoryFilter.addEventListener('change', renderTimeline);
+        keywordSearch.addEventListener('input', () => {
+            renderTimeline();
+        });
+
+        // Start the process
+        document.addEventListener('DOMContentLoaded', loadHistoryData);
+
+    </script>
+</body>
+
+</html>
