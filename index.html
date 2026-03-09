@@ -284,32 +284,6 @@
             transform: scale(1.1);
         }
 
-        .export-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 105px;
-            width: 60px;
-            height: 60px;
-            background: #fff;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            z-index: 100;
-            transition: all 0.3s;
-        }
-
-        .export-btn:hover {
-            background: var(--primary);
-            color: #fff;
-            transform: scale(1.1);
-        }
-
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -464,7 +438,6 @@
     </footer>
 
     <!-- Buttons -->
-    <div class="export-btn" id="export-json-btn" title="Export to JSON (Backup)">💾</div>
     <div class="add-btn" id="add-event-btn" title="Add New Event">+</div>
 
     <!-- Add Event Modal -->
@@ -521,11 +494,13 @@
         function createEventElement(eventData) {
             const eventItem = document.createElement('div');
             eventItem.className = 'event-item';
+            eventItem.setAttribute('data-id', eventData.id || `default-${eventData.year}-${eventData.title}`);
             eventItem.setAttribute('data-year', eventData.year);
             eventItem.setAttribute('data-category', eventData.category);
 
-            // Add delete button only for custom events (which have an 'id')
-            const deleteButtonHtml = eventData.id ? `<button class="delete-btn" onclick="deleteEvent(${eventData.id})" title="Delete Event">×</button>` : '';
+            // uniqueId for deletion
+            const uniqueId = eventData.id ? eventData.id : `def-${eventData.year}-${eventData.title.substring(0, 5)}`;
+            const deleteButtonHtml = `<button class="delete-btn" onclick="deleteEvent('${uniqueId}')" title="Delete Event">×</button>`;
 
             eventItem.innerHTML = `
                 <div class="event-card">
@@ -539,17 +514,27 @@
             return eventItem;
         }
 
-        // Function to delete a custom event
+        // Function to delete an event (both custom and default)
         window.deleteEvent = function (eventId) {
             if (!confirm("この出来事を削除しますか？ (Are you sure you want to delete this event?)")) return;
 
-            // Remove from localStorage
+            // Handle custom events
             let localEvents = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
-            localEvents = localEvents.filter(e => e.id !== eventId);
-            localStorage.setItem('customHistoryEvents', JSON.stringify(localEvents));
+            if (localEvents.some(e => e.id.toString() === eventId.toString())) {
+                localEvents = localEvents.filter(e => e.id.toString() !== eventId.toString());
+                localStorage.setItem('customHistoryEvents', JSON.stringify(localEvents));
+            } else {
+                // Record deleted default event IDs
+                let deletedIds = JSON.parse(localStorage.getItem('deletedHistoryEventIds')) || [];
+                deletedIds.push(eventId);
+                localStorage.setItem('deletedHistoryEventIds', JSON.stringify(deletedIds));
+            }
 
             // Remove from global dataset
-            allEventsData = allEventsData.filter(e => e.id !== eventId);
+            allEventsData = allEventsData.filter(e => {
+                const uniqueId = e.id ? e.id.toString() : `def-${e.year}-${e.title.substring(0, 5)}`;
+                return uniqueId !== eventId.toString();
+            });
 
             // Re-render components
             renderTimeline();
@@ -708,8 +693,15 @@
                 // Retrieve local data
                 const localData = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
 
+                // Filter out deleted default events
+                const deletedIds = JSON.parse(localStorage.getItem('deletedHistoryEventIds')) || [];
+                const filteredFetchedData = fetchedData.filter(e => {
+                    const uniqueId = `def-${e.year}-${e.title.substring(0, 5)}`;
+                    return !deletedIds.includes(uniqueId);
+                });
+
                 // Combine and sort descending by year
-                allEventsData = [...fetchedData, ...localData];
+                allEventsData = [...filteredFetchedData, ...localData];
                 allEventsData.sort((a, b) => b.year - a.year);
 
                 // Remove loading message
@@ -734,22 +726,6 @@
         categoryFilter.addEventListener('change', renderTimeline);
         keywordSearch.addEventListener('input', () => {
             renderTimeline();
-        });
-
-        // Export to JSON Logic
-        const exportBtn = document.getElementById('export-json-btn');
-        exportBtn.addEventListener('click', () => {
-            if (allEventsData.length === 0) return;
-
-            const dataStr = JSON.stringify(allEventsData, null, 4);
-            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-
-            const exportFileName = 'history_export_' + new Date().toISOString().slice(0, 10) + '.json';
-
-            const linkElement = document.createElement('a');
-            linkElement.setAttribute('href', dataUri);
-            linkElement.setAttribute('download', exportFileName);
-            linkElement.click();
         });
 
         // Start the process
