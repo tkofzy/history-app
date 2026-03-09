@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research Support History Timeline</title>
+    <!-- Google Fonts for Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <style>
@@ -25,8 +31,11 @@
             margin: 0;
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
             overflow-x: hidden;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(0, 158, 179, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.03) 0%, transparent 20%);
         }
 
         .header {
@@ -98,17 +107,20 @@
             width: 45%;
             padding: 30px;
             background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--border);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            transition: border-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            transform-style: preserve-3d;
         }
 
         .event-card:hover {
             border-color: var(--primary);
-            box-shadow: 0 10px 40px rgba(0, 158, 179, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 158, 179, 0.15);
+            transform: translateY(-10px) rotateX(2deg) rotateY(1deg);
         }
 
         .event-item:nth-child(even) {
@@ -272,6 +284,32 @@
             transform: scale(1.1);
         }
 
+        .export-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 105px;
+            width: 60px;
+            height: 60px;
+            background: #fff;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            z-index: 100;
+            transition: all 0.3s;
+        }
+
+        .export-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            transform: scale(1.1);
+        }
+
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -425,7 +463,8 @@
         <p>AND THE JOURNEY CONTINUES...</p>
     </footer>
 
-    <!-- Add Event Button -->
+    <!-- Buttons -->
+    <div class="export-btn" id="export-json-btn" title="Export to JSON (Backup)">💾</div>
     <div class="add-btn" id="add-event-btn" title="Add New Event">+</div>
 
     <!-- Add Event Modal -->
@@ -695,6 +734,22 @@
         categoryFilter.addEventListener('change', renderTimeline);
         keywordSearch.addEventListener('input', () => {
             renderTimeline();
+        });
+
+        // Export to JSON Logic
+        const exportBtn = document.getElementById('export-json-btn');
+        exportBtn.addEventListener('click', () => {
+            if (allEventsData.length === 0) return;
+
+            const dataStr = JSON.stringify(allEventsData, null, 4);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+            const exportFileName = 'history_export_' + new Date().toISOString().slice(0, 10) + '.json';
+
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileName);
+            linkElement.click();
         });
 
         // Start the process
