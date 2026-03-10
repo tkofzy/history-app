@@ -4,829 +4,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Support History Timeline</title>
-    <!-- Google Fonts for Modern Typography -->
+    <title>Research Support History Archive</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@600;900&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <style>
-        :root {
-            --primary: #009eb3;
-            /* URA-PORTAL cyan */
-            --accent: #ff007f;
-            /* Magenta */
-            --bg: #fafbfc;
-            /* Light background */
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --text: #1a1e23;
-            --text-muted: #6e7781;
-            --border: rgba(0, 0, 0, 0.08);
-            /* Earth Colors for Event Categories */
-            --cat-policy: #5b7c99;
-            /* くすんだ青 */
-            --cat-organization: #738c66;
-            /* 落ち着いた緑 */
-            --cat-infrastructure: #a86c5d;
-            /* レンガ色 */
-        }
-
-        body {
-            margin: 0;
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
-            overflow-x: hidden;
-            letter-spacing: 0.05em;
-            background-image:
-                radial-gradient(circle at 10% 20%, rgba(0, 158, 179, 0.03) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255, 0, 127, 0.03) 0%, transparent 20%);
-        }
-
-        .header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
-        }
-
-        .header h1 {
-            font-size: 4rem;
-            margin: 0;
-            letter-spacing: 0.2rem;
-            text-transform: uppercase;
-            color: var(--text);
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-        }
-
-        .timeline-container {
-            position: relative;
-            padding: 100px 0;
-        }
-
-        /* 中央の線 */
-        .timeline-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--accent), transparent);
-            transform: translateX(-50%);
-            z-index: 1;
-        }
-
-        /* 年代表示 */
-        .year-indicator {
-            position: sticky;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 10rem;
-            font-family: 'Times New Roman', "Yu Mincho", "MS Mincho", serif;
-            font-weight: 900;
-            color: rgba(0, 0, 0, 0.08);
-            z-index: 0;
-            pointer-events: none;
-            white-space: nowrap;
-        }
-
-        .event-item {
-            width: 100%;
-            margin-bottom: 150px;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(50px);
-        }
-
-        .event-card {
-            width: 45%;
-            padding: 20px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            transform-style: preserve-3d;
-        }
-
-        .event-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 20px 50px rgba(0, 158, 179, 0.15);
-            transform: translateY(-10px) rotateX(2deg) rotateY(1deg);
-        }
-
-        .event-item:nth-child(even) {
-            justify-content: flex-end;
-            padding-right: 10%;
-        }
-
-        .event-item:nth-child(odd) {
-            justify-content: flex-start;
-            padding-left: 10%;
-        }
-
-        .date-label {
-            font-size: 1.5rem;
-            font-family: 'Times New Roman', "Yu Mincho", "MS Mincho", serif;
-            color: var(--text);
-            font-weight: 800;
-            margin-bottom: 10px;
-            display: block;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 5px;
-        }
-
-        .title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .description {
-            font-size: 1rem;
-            line-height: 1.7;
-            letter-spacing: 0.03em;
-            color: var(--text-muted);
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            margin-top: 15px;
-            /* Default fallback */
-            background: rgba(0, 158, 179, 0.1);
-            color: var(--primary);
-            border: 1px solid rgba(0, 158, 179, 0.2);
-        }
-
-        .tag[data-cat="Policy"] {
-            background: rgba(91, 124, 153, 0.1);
-            color: var(--cat-policy);
-            border-color: rgba(91, 124, 153, 0.2);
-        }
-
-        .tag[data-cat="Organization"] {
-            background: rgba(115, 140, 102, 0.1);
-            color: var(--cat-organization);
-            border-color: rgba(115, 140, 102, 0.2);
-        }
-
-        .tag[data-cat="Infrastructure"] {
-            background: rgba(168, 108, 93, 0.1);
-            color: var(--cat-infrastructure);
-            border-color: rgba(168, 108, 93, 0.2);
-        }
-
-        footer {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            background: linear-gradient(to bottom, var(--bg), #e2e8f0);
-            color: var(--text-muted);
-        }
-
-        .back-btn {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            color: var(--text);
-            background: var(--card-bg);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            z-index: 999;
-            padding: 10px 20px;
-            border: 1px solid var(--border);
-            border-radius: 30px;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .back-btn:hover {
-            color: var(--primary);
-            border-color: var(--primary);
-            background: #fff;
-        }
-
-        /* Filter Controls */
-        .filter-container {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 15px;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
-            width: 100%;
-            box-sizing: border-box;
-            margin: 0 0 50px 0;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        .filter-select,
-        .search-input {
-            background: #fff;
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 1rem;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .filter-select:focus,
-        .search-input:focus {
-            border-color: var(--primary);
-        }
-
-        .filter-select option {
-            background: #fff;
-            color: var(--text);
-        }
-
-        .search-input {
-            width: 200px;
-        }
-
-        /* Add Event Modal & Button */
-        .add-btn {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: var(--primary);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 158, 179, 0.3);
-            z-index: 100;
-            transition: transform 0.3s;
-        }
-
-        .add-btn:hover {
-            transform: scale(1.1);
-        }
-
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid var(--border);
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 10px;
-        }
-
-        .modal-title {
-            color: var(--text);
-            font-size: 1.5rem;
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: var(--accent);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .form-control {
-            width: 100%;
-            background: #fafbfc;
-            border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 5px;
-            color: var(--text);
-            font-family: inherit;
-            outline: none;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1rem;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-
-        .submit-btn:hover {
-            background: #00899c;
-        }
-
-        /* Animations for Skeleton Loading & Scroll Icon */
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        serif: ['Noto Serif JP', 'serif'],
+                    },
+                    colors: {
+                        primary: '#009eb3',
+                        accent: '#ff007f',
+                    }
+                }
             }
         }
-
-        .skeleton-card {
-            width: 45%;
-            height: 200px;
-            background: rgba(200, 200, 200, 0.3);
-            border-radius: 20px;
-            margin: 0 auto 50px auto;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid var(--border);
-        }
-
-        .skeleton-card::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: skeletonShine 1.5s infinite;
-        }
-
-        @keyframes skeletonShine {
-            100% {
-                left: 150%;
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-stone-50 text-slate-800 font-sans selection:bg-primary selection:text-white;
             }
         }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(10px);
-            }
-        }
-
-        .scroll-down-icon {
-            margin-top: 15px;
-            width: 30px;
-            height: 30px;
-            fill: var(--text-muted);
-            animation: bounce 2s infinite ease-in-out;
-        }
-
-        @media (max-width: 768px) {
-            .timeline-line {
-                left: 20px;
-                transform: none;
-            }
-
-            .event-item,
-            .event-item:nth-child(even),
-            .event-item:nth-child(odd) {
-                justify-content: flex-start;
-                padding-left: 50px;
-                padding-right: 20px;
-                box-sizing: border-box;
-            }
-
-            .event-card {
-                width: 100%;
-            }
-
-            .year-indicator {
-                font-size: 5rem;
-                left: 50px;
-                transform: translate(0, -50%);
-                text-align: left;
-            }
-
-            .header h1 {
-                font-size: 2.5rem;
-            }
-
-            .filter-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .filter-select,
-            .search-input {
-                width: 100%;
-                box-sizing: border-box;
-            }
-        }
-
-        /* Storage Note */
-        .storage-note {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-top: 15px;
-            text-align: center;
+        .timeline-line-gradient {
+            background: linear-gradient(to bottom, #cbd5e1 0%, #009eb3 20%, #ff007f 80%, transparent 100%);
         }
     </style>
 </head>
 
-<body>
+<body class="overflow-x-hidden">
 
-    <section class="header">
-        <h1>Historical Nav</h1>
-        <p>日本における研究支援の変遷を辿る</p>
-        <div
-            style="margin-top: 50px; font-size: 0.8rem; opacity: 0.5; display: flex; flex-direction: column; align-items: center;">
-            <span>下へスクロールして時間を遡る</span>
-            <svg class="scroll-down-icon" viewBox="0 0 24 24">
-                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+    <!-- Hero Header -->
+    <header
+        class="relative h-[60vh] flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-slate-100 to-stone-200">
+        <h1 class="text-5xl md:text-7xl font-serif font-black tracking-tighter mb-4 opacity-0" id="hero-title">
+            Historical Nav
+        </h1>
+        <p class="text-lg md:text-xl text-slate-600 font-light tracking-widest opacity-0" id="hero-subtitle">
+            日本における研究支援の変遷を辿る
+        </p>
+        <div class="absolute bottom-10 animate-bounce cursor-pointer flex flex-col items-center gap-2 opacity-0"
+            id="scroll-indicator">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-slate-400">Scroll Down</span>
+            <svg class="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7"></path>
             </svg>
         </div>
-    </section>
+    </header>
 
-    <!-- Filter Controls -->
-    <div class="filter-container">
-        <select id="category-filter" class="filter-select">
-            <option value="All">全て</option>
-            <option value="Policy">政策・制度</option>
-            <option value="Organization">組織・ネットワーク</option>
-            <option value="Infrastructure">システム・基盤</option>
-        </select>
-        <input type="text" id="keyword-search" class="search-input" placeholder="キーワード検索...">
-    </div>
-
-    <div class="timeline-container">
-        <div class="timeline-line"></div>
-        <div class="year-indicator" id="sticky-year">2025</div>
-
-        <div id="events-wrapper">
-            <div id="loading-message" style="display: flex; flex-direction: column; width: 100%;">
-                <div class="skeleton-card" style="align-self: flex-start; margin-left: 10%;"></div>
-                <div class="skeleton-card" style="align-self: flex-end; margin-right: 10%;"></div>
-                <div class="skeleton-card" style="align-self: flex-start; margin-left: 10%;"></div>
+    <!-- Sticky Navigation (Glassmorphism) -->
+    <nav
+        class="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md border-b border-slate-200/50 transition-all duration-300">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center gap-4">
+            <div class="flex flex-wrap justify-center gap-2">
+                <button data-cat="All"
+                    class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 bg-slate-800 text-white shadow-sm">全て</button>
+                <button data-cat="Policy"
+                    class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">政策・制度</button>
+                <button data-cat="Organization"
+                    class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">組織・ネットワーク</button>
+                <button data-cat="Infrastructure"
+                    class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">システム・基盤</button>
             </div>
-            <!-- Events will be injected here by JavaScript -->
+            <div class="relative w-full md:w-64">
+                <input type="text" id="keyword-search" placeholder="検索..."
+                    class="w-full bg-white/50 border border-slate-200 rounded-full px-4 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                <svg class="absolute right-3 top-2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <footer>
-        <p>そして、時は続く...</p>
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 py-20 relative min-h-screen">
+
+        <!-- Center Timeline Line -->
+        <div
+            class="absolute left-8 md:left-1/2 top-0 bottom-10 w-px md:w-0.5 timeline-line-gradient -translate-x-1/2 z-0">
+        </div>
+
+        <!-- Year Indicator (Floating side) -->
+        <div class="fixed left-4 md:left-auto md:right-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+            <span id="floating-year"
+                class="text-8xl md:text-[15rem] font-serif font-black text-slate-200/40 tabular-nums leading-none transition-all duration-700">2025</span>
+        </div>
+
+        <!-- Events Container -->
+        <div id="events-wrapper" class="relative z-10 space-y-24 md:space-y-32">
+            <!-- Loading Skeleton -->
+            <div id="loading-skeleton" class="space-y-24 md:space-y-32">
+                <div class="flex md:justify-start w-full md:w-1/2 px-4 md:px-12">
+                    <div class="h-48 w-full bg-slate-200 animate-pulse rounded-2xl"></div>
+                </div>
+                <div class="flex md:justify-end w-full md:ml-auto md:w-1/2 px-4 md:px-12">
+                    <div class="h-48 w-full bg-slate-200 animate-pulse rounded-2xl"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="h-[60vh] flex flex-col justify-center items-center bg-stone-100 text-center px-4">
+        <p class="text-2xl font-serif text-slate-400">そして、時は続く...</p>
+        <div class="mt-8 text-xs text-slate-300 uppercase tracking-widest">© Research Support History Archive</div>
     </footer>
-
-    <!-- Buttons -->
-    <div class="add-btn" id="add-event-btn" title="Add New Event">+</div>
-
-    <!-- Add Event Modal -->
-    <div class="modal-overlay" id="event-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title">出来事の追加</h2>
-                <button class="close-btn" id="close-modal">&times;</button>
-            </div>
-            <form id="add-event-form">
-                <div class="form-group">
-                    <label for="event-year">年度</label>
-                    <input type="number" id="event-year" class="form-control" required min="1900" max="2100">
-                </div>
-                <div class="form-group">
-                    <label for="event-category">カテゴリー</label>
-                    <select id="event-category" class="form-control" required>
-                        <option value="Policy">政策・制度</option>
-                        <option value="Organization">組織・ネットワーク</option>
-                        <option value="Infrastructure">システム・基盤</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="event-tag">タグ</label>
-                    <input type="text" id="event-tag" class="form-control" list="existing-tags" required
-                        placeholder="例：研究力強化">
-                    <datalist id="existing-tags"></datalist>
-                </div>
-                <div class="form-group">
-                    <label for="event-title">出来事の名前</label>
-                    <input type="text" id="event-title" class="form-control" required placeholder="例：新しい制度の開始">
-                </div>
-                <div class="form-group">
-                    <label for="event-description">説明</label>
-                    <textarea id="event-description" class="form-control" required
-                        placeholder="出来事の詳細を記述してください..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">タイムラインに追加する</button>
-                <p class="storage-note">※追加したデータは、現在お使いのブラウザ（ローカルストレージ）にのみ保存され、公開されることはありません。</p>
-            </form>
-        </div>
-    </div>
 
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
         const eventsWrapper = document.getElementById('events-wrapper');
-        const yearDisplay = document.getElementById('sticky-year');
-        const categoryFilter = document.getElementById('category-filter');
+        const floatingYear = document.getElementById('floating-year');
         const keywordSearch = document.getElementById('keyword-search');
+        const filterBtns = document.querySelectorAll('.filter-btn');
 
-        let allEventsData = []; // Store all fetched data globally
+        let allEventsData = [];
+        let currentFilter = 'All';
 
-        // Function to create DOM elements for an event
-        function createEventElement(eventData) {
-            const eventItem = document.createElement('div');
-            eventItem.className = 'event-item';
-            eventItem.setAttribute('data-id', eventData.id || `default-${eventData.year}-${eventData.title}`);
-            eventItem.setAttribute('data-year', eventData.year);
-            eventItem.setAttribute('data-category', eventData.category);
+        // Event Element Creator (Zigzag)
+        function createEventElement(eventData, index) {
+            const isEven = index % 2 === 1;
+            const item = document.createElement('div');
+            item.className = `event-item flex flex-col md:flex-row w-full relative z-10 transition-all duration-500 transform translate-y-10 opacity-0`;
+            item.setAttribute('data-year', eventData.year);
+            item.setAttribute('data-index', index);
 
-            eventItem.innerHTML = `
-                <div class="event-card">
-                    <span class="date-label">${eventData.year}</span>
-                    <h3 class="title">${eventData.title}</h3>
-                    <p class="description">${eventData.description}</p>
-                    <span class="tag" data-cat="${eventData.category}">${eventData.tag}</span>
+            // Category Styles
+            const catStyles = {
+                Policy: 'bg-blue-50 text-blue-700 border-blue-100',
+                Organization: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+                Infrastructure: 'bg-amber-50 text-amber-700 border-amber-100'
+            };
+            const currentStyle = catStyles[eventData.category] || 'bg-slate-50 text-slate-700 border-slate-100';
+
+            item.innerHTML = `
+                <!-- Timeline Dot (Mobile only at left, Desktop at center) -->
+                <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-primary -translate-x-1/2 top-4 md:top-8 z-20 shadow-sm transition-transform duration-300 hover:scale-125"></div>
+                
+                <div class="w-full md:w-1/2 pl-16 pr-4 md:px-12 ${isEven ? 'md:order-last md:ml-auto' : 'md:mr-auto'}">
+                    <div class="group relative bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-3xl font-serif font-black text-slate-900 leading-none">${eventData.year}</span>
+                            <span class="px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${currentStyle} border">
+                                ${eventData.tag}
+                            </span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mb-4 text-slate-800 leading-snug group-hover:text-primary transition-colors">
+                            ${eventData.title}
+                        </h3>
+                        
+                        <p class="text-sm leading-relaxed text-slate-500 font-medium">
+                            ${eventData.description}
+                        </p>
+                    </div>
                 </div>
             `;
-            return eventItem;
+            return item;
         }
 
-        // Populate datalist with unique tags
-        function updateTagDatalist() {
-            const datalist = document.getElementById('existing-tags');
-            if (!datalist) return;
-
-            const uniqueTags = [...new Set(allEventsData.map(e => e.tag))].filter(Boolean);
-            datalist.innerHTML = '';
-
-            uniqueTags.forEach(tag => {
-                const option = document.createElement('option');
-                option.value = tag;
-                datalist.appendChild(option);
-            });
-        }
-
-        // Function to initialize GSAP animations
+        // Initialize GSAP
         function initGSAP() {
-            // Kill all existing ScrollTriggers to prevent overlaps when filtering
-            ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+            ScrollTrigger.getAll().forEach(t => t.kill());
 
-            const events = document.querySelectorAll('.event-item');
+            const items = document.querySelectorAll('.event-item');
 
-            // Set initial state for year indicator
-            if (events.length > 0) {
-                yearDisplay.innerText = events[0].getAttribute('data-year');
-            } else {
-                yearDisplay.innerText = "----";
-            }
+            items.forEach((item, i) => {
+                const year = item.getAttribute('data-year');
 
-            events.forEach((event) => {
-                const year = event.getAttribute('data-year');
-
-                gsap.fromTo(event,
-                    { opacity: 0, y: 50 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        scrollTrigger: {
-                            trigger: event,
-                            start: "top 80%",
-                            end: "top 20%",
-                            scrub: true,
-                            onEnter: () => yearDisplay.innerText = year,
-                            onEnterBack: () => yearDisplay.innerText = year,
-                        }
+                gsap.to(item, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                        onEnter: () => floatingYear.innerText = year,
+                        onEnterBack: () => floatingYear.innerText = year,
                     }
-                );
+                });
             });
 
-            ScrollTrigger.refresh();
+            // Hero animations
+            gsap.to("#hero-title", { opacity: 1, y: 0, from: { y: 20 }, duration: 1, delay: 0.2 });
+            gsap.to("#hero-subtitle", { opacity: 1, y: 0, from: { y: 10 }, duration: 1, delay: 0.5 });
+            gsap.to("#scroll-indicator", { opacity: 1, duration: 1, delay: 1 });
         }
 
-        // Render timeline based on current filters
+        // Search & Filter Logic
         function renderTimeline() {
-            const selectedCategory = categoryFilter.value;
             const keyword = keywordSearch.value.toLowerCase();
-
-            // Filter data
-            const filteredData = allEventsData.filter(event => {
-                const matchesCategory = selectedCategory === 'All' || event.category === selectedCategory;
-                const matchesKeyword = event.title.toLowerCase().includes(keyword) ||
-                    event.description.toLowerCase().includes(keyword) ||
-                    event.tag.toLowerCase().includes(keyword);
-                return matchesCategory && matchesKeyword;
+            const filtered = allEventsData.filter(e => {
+                const matchesCat = currentFilter === 'All' || e.category === currentFilter;
+                const matchesKeyword = e.title.toLowerCase().includes(keyword) ||
+                    e.description.toLowerCase().includes(keyword) ||
+                    e.tag.toLowerCase().includes(keyword);
+                return matchesCat && matchesKeyword;
             });
 
-            // Clear wrapper
             eventsWrapper.innerHTML = '';
-
-            if (filteredData.length === 0) {
-                eventsWrapper.innerHTML = `
-                    <div style="text-align: center; color: var(--text); padding: 50px; font-size: 1.2rem;">
-                        検索条件に一致する出来事が見つかりませんでした。
-                    </div>
-                `;
+            if (filtered.length === 0) {
+                eventsWrapper.innerHTML = '<div class="text-center py-20 text-slate-400">検索結果が見つかりませんでした。</div>';
             } else {
-                // Generate and append DOM elements
-                filteredData.forEach(event => {
-                    const el = createEventElement(event);
-                    eventsWrapper.appendChild(el);
+                filtered.forEach((e, idx) => {
+                    eventsWrapper.appendChild(createEventElement(e, idx));
                 });
             }
-
-            // Re-initialize animations
             setTimeout(initGSAP, 100);
         }
 
-        // Modal Logic
-        const addEventBtn = document.getElementById('add-event-btn');
-        const eventModal = document.getElementById('event-modal');
-        const closeModalBtn = document.getElementById('close-modal');
-        const addEventForm = document.getElementById('add-event-form');
+        // Filtering
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('bg-slate-800', 'text-white', 'shadow-sm'));
+                filterBtns.forEach(b => b.classList.add('hover:bg-slate-100', 'text-slate-600'));
 
-        addEventBtn.addEventListener('click', () => {
-            eventModal.classList.add('active');
-        });
+                btn.classList.add('bg-slate-800', 'text-white', 'shadow-sm');
+                btn.classList.remove('hover:bg-slate-100', 'text-slate-600');
 
-        closeModalBtn.addEventListener('click', () => {
-            eventModal.classList.remove('active');
-        });
-
-        eventModal.addEventListener('click', (e) => {
-            if (e.target === eventModal) {
-                eventModal.classList.remove('active');
-            }
-        });
-
-        // Handle Form Submission
-        addEventForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Create new event object
-            const newEvent = {
-                id: Date.now(), // Unique ID so it can be deleted
-                year: parseInt(document.getElementById('event-year').value),
-                category: document.getElementById('event-category').value,
-                tag: document.getElementById('event-tag').value,
-                title: document.getElementById('event-title').value,
-                description: document.getElementById('event-description').value
-            };
-
-            // Save to localStorage
-            const localEvents = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
-            localEvents.push(newEvent);
-            localStorage.setItem('customHistoryEvents', JSON.stringify(localEvents));
-
-            // Add to active dataset and re-sort (descending year)
-            allEventsData.push(newEvent);
-            allEventsData.sort((a, b) => b.year - a.year);
-
-            // Reset form and close modal
-            addEventForm.reset();
-            eventModal.classList.remove('active');
-
-            // Re-render timeline with new data and updated tags
-            renderTimeline();
-            updateTagDatalist();
-        });
-
-        // Fetch data initially
-        async function loadHistoryData() {
-            try {
-                // Fetch JSON data
-                const response = await fetch('data/history.json');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const fetchedData = await response.json();
-
-                // Retrieve local data
-                const localData = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
-
-                // Combine and sort descending by year
-                allEventsData = [...fetchedData, ...localData];
-                allEventsData.sort((a, b) => b.year - a.year);
-
-                // Remove loading message
-                const loadingMsg = document.getElementById('loading-message');
-                if (loadingMsg) loadingMsg.remove();
-
-                // Initial render and populate tags
+                currentFilter = btn.getAttribute('data-cat');
                 renderTimeline();
-                updateTagDatalist();
+            });
+        });
 
-            } catch (error) {
-                console.error("Error loading history data:", error);
-                eventsWrapper.innerHTML = `
-                    <div style="text-align: center; color: red; padding: 50px;">
-                        Error loading data. Please try again later.
-                    </div>
-                `;
+        keywordSearch.addEventListener('input', renderTimeline);
+
+        // Data Loading
+        async function loadData() {
+            try {
+                const resp = await fetch('data/history.json');
+                const data = await resp.json();
+
+                // Merge with local custom events (if existing)
+                const local = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
+                allEventsData = [...data, ...local].sort((a, b) => b.year - a.year);
+
+                document.getElementById('loading-skeleton')?.remove();
+                renderTimeline();
+            } catch (err) {
+                console.error(err);
+                eventsWrapper.innerHTML = '<div class="text-red-500 text-center py-20">データの読み込みに失敗しました。</div>';
             }
         }
 
-        // Event Listeners for Filters
-        categoryFilter.addEventListener('change', renderTimeline);
-        keywordSearch.addEventListener('input', () => {
-            renderTimeline();
-        });
-
-        // Start the process
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(loadHistoryData, 600); // Short delay to visually show the new skeleton loader
-        });
+        document.addEventListener('DOMContentLoaded', () => { loadData(); });
 
     </script>
 </body>
