@@ -25,6 +25,10 @@
             --text: #1a1e23;
             --text-muted: #6e7781;
             --border: rgba(0, 0, 0, 0.08);
+            /* Earth Colors for Event Categories */
+            --cat-policy: #5b7c99; /* くすんだ青 */
+            --cat-organization: #738c66; /* 落ち着いた緑 */
+            --cat-infrastructure: #a86c5d; /* レンガ色 */
         }
 
         body {
@@ -84,9 +88,10 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 8rem;
+            font-size: 10rem;
+            font-family: 'Times New Roman', "Yu Mincho", "MS Mincho", serif;
             font-weight: 900;
-            color: rgba(0, 0, 0, 0.04);
+            color: rgba(0, 0, 0, 0.08);
             z-index: 0;
             pointer-events: none;
             white-space: nowrap;
@@ -134,17 +139,21 @@
         }
 
         .date-label {
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: bold;
+            font-size: 1.5rem;
+            font-family: 'Times New Roman', "Yu Mincho", "MS Mincho", serif;
+            color: var(--text);
+            font-weight: 800;
             margin-bottom: 10px;
             display: block;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
         }
 
         .title {
             font-size: 1.5rem;
             margin-bottom: 15px;
             color: var(--text);
+            font-weight: 600;
         }
 
         .description {
@@ -156,13 +165,18 @@
         .tag {
             display: inline-block;
             padding: 4px 12px;
-            background: rgba(0, 158, 179, 0.1);
-            color: var(--primary);
             border-radius: 50px;
             font-size: 0.8rem;
             margin-top: 15px;
+            /* Default fallback */
+            background: rgba(0, 158, 179, 0.1);
+            color: var(--primary);
             border: 1px solid rgba(0, 158, 179, 0.2);
         }
+
+        .tag[data-cat="Policy"] { background: rgba(91, 124, 153, 0.1); color: var(--cat-policy); border-color: rgba(91, 124, 153, 0.2); }
+        .tag[data-cat="Organization"] { background: rgba(115, 140, 102, 0.1); color: var(--cat-organization); border-color: rgba(115, 140, 102, 0.2); }
+        .tag[data-cat="Infrastructure"] { background: rgba(168, 108, 93, 0.1); color: var(--cat-infrastructure); border-color: rgba(168, 108, 93, 0.2); }
 
         .delete-btn {
             position: absolute;
@@ -398,26 +412,108 @@
         .submit-btn:hover {
             background: #00899c;
         }
+
+        /* Animations for Skeleton Loading & Scroll Icon */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .skeleton-card {
+            width: 45%;
+            height: 200px;
+            background: rgba(200, 200, 200, 0.3);
+            border-radius: 20px;
+            margin: 0 auto 50px auto;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .skeleton-card::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: skeletonShine 1.5s infinite;
+        }
+        @keyframes skeletonShine {
+            100% { left: 150%; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+        .scroll-down-icon {
+            margin-top: 15px;
+            width: 30px;
+            height: 30px;
+            fill: var(--text-muted);
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        /* Lang Toggle Button */
+        .lang-toggle-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        #lang-toggle-btn {
+            background: var(--card-bg);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        #lang-toggle-btn:hover {
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+        
+        /* Storage Note */
+        .storage-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 15px;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- Language Toggle -->
+    <div class="lang-toggle-container">
+        <button id="lang-toggle-btn">EN</button>
+    </div>
+
     <section class="header">
         <h1>Historical Nav</h1>
-        <p>日本における研究支援の変遷を辿る</p>
-        <div style="margin-top: 50px; font-size: 0.8rem; opacity: 0.5;">SCROLL DOWN TO GO BACK IN TIME</div>
+        <p class="i18n" data-ja="日本における研究支援の変遷を辿る" data-en="Tracing the evolution of research support in Japan">日本における研究支援の変遷を辿る</p>
+        <div style="margin-top: 50px; font-size: 0.8rem; opacity: 0.5; display: flex; flex-direction: column; align-items: center;">
+            <span class="i18n" data-ja="下へスクロールして時間を遡る" data-en="SCROLL DOWN TO GO BACK IN TIME">下へスクロールして時間を遡る</span>
+            <svg class="scroll-down-icon" viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+        </div>
     </section>
 
     <!-- Filter Controls -->
     <div class="filter-container">
         <select id="category-filter" class="filter-select">
-            <option value="All">All Categories / 全て</option>
-            <option value="Policy">Policy / 政策・制度</option>
-            <option value="Organization">Organization / 組織・ネットワーク</option>
-            <option value="Infrastructure">Infrastructure / システム・基盤</option>
+            <option value="All" class="i18n-opt" data-ja="全て" data-en="All Categories">全て</option>
+            <option value="Policy" class="i18n-opt" data-ja="政策・制度" data-en="Policy">政策・制度</option>
+            <option value="Organization" class="i18n-opt" data-ja="組織・ネットワーク" data-en="Organization">組織・ネットワーク</option>
+            <option value="Infrastructure" class="i18n-opt" data-ja="システム・基盤" data-en="Infrastructure">システム・基盤</option>
         </select>
-        <input type="text" id="keyword-search" class="search-input" placeholder="Search keywords...">
+        <input type="text" id="keyword-search" class="search-input i18n-placeholder" data-ja="キーワード検索..." data-en="Search keywords..." placeholder="キーワード検索...">
     </div>
 
     <div class="timeline-container">
@@ -425,16 +521,17 @@
         <div class="year-indicator" id="sticky-year">2025</div>
 
         <div id="events-wrapper">
-            <div id="loading-message"
-                style="text-align: center; font-size: 1.5rem; padding: 50px; color: var(--primary);">
-                Loading historical data...
+            <div id="loading-message" style="display: flex; flex-direction: column; width: 100%;">
+                <div class="skeleton-card" style="align-self: flex-start; margin-left: 10%;"></div>
+                <div class="skeleton-card" style="align-self: flex-end; margin-right: 10%;"></div>
+                <div class="skeleton-card" style="align-self: flex-start; margin-left: 10%;"></div>
             </div>
             <!-- Events will be injected here by JavaScript -->
         </div>
     </div>
 
     <footer>
-        <p>AND THE JOURNEY CONTINUES...</p>
+        <p class="i18n" data-ja="そして、時は続く..." data-en="AND THE JOURNEY CONTINUES...">そして、時は続く...</p>
     </footer>
 
     <!-- Buttons -->
@@ -444,38 +541,39 @@
     <div class="modal-overlay" id="event-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title">Add Historical Event</h2>
+                <h2 class="modal-title i18n" data-ja="出来事の追加" data-en="Add Historical Event">出来事の追加</h2>
                 <button class="close-btn" id="close-modal">&times;</button>
             </div>
             <form id="add-event-form">
                 <div class="form-group">
-                    <label for="event-year">Year (年度)</label>
+                    <label for="event-year" class="i18n" data-ja="年度" data-en="Year">年度</label>
                     <input type="number" id="event-year" class="form-control" required min="1900" max="2100">
                 </div>
                 <div class="form-group">
-                    <label for="event-category">Category (カテゴリー)</label>
+                    <label for="event-category" class="i18n" data-ja="カテゴリー" data-en="Category">カテゴリー</label>
                     <select id="event-category" class="form-control" required>
-                        <option value="Policy">Policy / 政策・制度</option>
-                        <option value="Organization">Organization / 組織・ネットワーク</option>
-                        <option value="Infrastructure">Infrastructure / システム・基盤</option>
+                        <option value="Policy" class="i18n-opt" data-ja="政策・制度" data-en="Policy">政策・制度</option>
+                        <option value="Organization" class="i18n-opt" data-ja="組織・ネットワーク" data-en="Organization">組織・ネットワーク</option>
+                        <option value="Infrastructure" class="i18n-opt" data-ja="システム・基盤" data-en="Infrastructure">システム・基盤</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="event-tag">Tag (タグ)</label>
-                    <input type="text" id="event-tag" class="form-control" list="existing-tags" required
-                        placeholder="e.g. 研究力強化">
+                    <label for="event-tag" class="i18n" data-ja="タグ" data-en="Tag">タグ</label>
+                    <input type="text" id="event-tag" class="form-control i18n-placeholder" list="existing-tags" required
+                        data-ja="例：研究力強化" data-en="e.g. Research Support" placeholder="例：研究力強化">
                     <datalist id="existing-tags"></datalist>
                 </div>
                 <div class="form-group">
-                    <label for="event-title">Title (出来事の名前)</label>
-                    <input type="text" id="event-title" class="form-control" required placeholder="e.g. 新しい制度の開始">
+                    <label for="event-title" class="i18n" data-ja="出来事の名前" data-en="Title">出来事の名前</label>
+                    <input type="text" id="event-title" class="form-control i18n-placeholder" required data-ja="例：新しい制度の開始" data-en="e.g. Launch of a new system" placeholder="例：新しい制度の開始">
                 </div>
                 <div class="form-group">
-                    <label for="event-description">Description (説明)</label>
-                    <textarea id="event-description" class="form-control" required
-                        placeholder="出来事の詳細を記述してください..."></textarea>
+                    <label for="event-description" class="i18n" data-ja="説明" data-en="Description">説明</label>
+                    <textarea id="event-description" class="form-control i18n-placeholder" required
+                        data-ja="出来事の詳細を記述してください..." data-en="Describe the historical event in detail..." placeholder="出来事の詳細を記述してください..."></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Add Event to Timeline</button>
+                <button type="submit" class="submit-btn i18n" data-ja="タイムラインに追加する" data-en="Add Event to Timeline">タイムラインに追加する</button>
+                <p class="storage-note i18n" data-ja="※追加したデータは、現在お使いのブラウザ（ローカルストレージ）にのみ保存され、公開されることはありません。" data-en="* Note: Added events are saved only in your local browser storage and are not published.">※追加したデータは、現在お使いのブラウザ（ローカルストレージ）にのみ保存され、公開されることはありません。</p>
             </form>
         </div>
     </div>
@@ -508,7 +606,7 @@
                     <span class="date-label">${eventData.year}</span>
                     <h3 class="title">${eventData.title}</h3>
                     <p class="description">${eventData.description}</p>
-                    <span class="tag">${eventData.tag}</span>
+                    <span class="tag" data-cat="${eventData.category}">${eventData.tag}</span>
                 </div>
             `;
             return eventItem;
@@ -516,7 +614,10 @@
 
         // Function to delete an event (both custom and default)
         window.deleteEvent = function (eventId) {
-            if (!confirm("この出来事を削除しますか？ (Are you sure you want to delete this event?)")) return;
+            const confirmMsg = window.currentLang === 'en' 
+                ? "Are you sure you want to delete this event?" 
+                : "この出来事を削除しますか？";
+            if (!confirm(confirmMsg)) return;
 
             // Handle custom events
             let localEvents = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
@@ -611,9 +712,12 @@
             eventsWrapper.innerHTML = '';
 
             if (filteredData.length === 0) {
+                const noMatchText = window.currentLang === 'en' 
+                    ? 'No matching events found.' 
+                    : '検索条件に一致する出来事が見つかりませんでした。';
                 eventsWrapper.innerHTML = `
                     <div style="text-align: center; color: var(--text); padding: 50px; font-size: 1.2rem;">
-                        No matching events found. <br><span style="opacity: 0.5; font-size: 0.9rem;">検索条件に一致する出来事が見つかりませんでした。</span>
+                        ${noMatchText}
                     </div>
                 `;
             } else {
@@ -722,6 +826,23 @@
             }
         }
 
+        // Language Toggle Logic
+        window.currentLang = 'ja';
+        function updateLanguage() {
+            document.querySelectorAll('.i18n').forEach(el => { el.innerText = el.getAttribute(`data-${window.currentLang}`); });
+            document.querySelectorAll('.i18n-opt').forEach(el => { el.innerText = el.getAttribute(`data-${window.currentLang}`); });
+            document.querySelectorAll('.i18n-placeholder').forEach(el => { el.placeholder = el.getAttribute(`data-${window.currentLang}`); });
+            
+            const btn = document.getElementById('lang-toggle-btn');
+            if (btn) btn.innerText = window.currentLang === 'ja' ? 'EN' : 'JP';
+        }
+
+        document.getElementById('lang-toggle-btn').addEventListener('click', () => {
+            window.currentLang = window.currentLang === 'ja' ? 'en' : 'ja';
+            updateLanguage();
+            renderTimeline();
+        });
+
         // Event Listeners for Filters
         categoryFilter.addEventListener('change', renderTimeline);
         keywordSearch.addEventListener('input', () => {
@@ -729,7 +850,10 @@
         });
 
         // Start the process
-        document.addEventListener('DOMContentLoaded', loadHistoryData);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateLanguage();
+            setTimeout(loadHistoryData, 600); // Short delay to visually show the new skeleton loader
+        });
 
     </script>
 </body>
