@@ -29,19 +29,14 @@
             }
         }
     </script>
-    <style type="text/tailwindcss">
-        @layer base {
-            body {
-                @apply bg-stone-50 text-slate-800 font-sans selection:bg-primary selection:text-white;
-            }
-        }
+    <style>
         .timeline-line-gradient {
             background: linear-gradient(to bottom, #cbd5e1 0%, #009eb3 20%, #ff007f 80%, transparent 100%);
         }
     </style>
 </head>
 
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden bg-stone-50 text-slate-800 font-sans selection:bg-primary selection:text-white">
 
     <!-- Hero Header -->
     <header
@@ -68,12 +63,16 @@
             <div class="flex flex-wrap justify-center gap-2">
                 <button data-cat="All"
                     class="filter-btn active px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 bg-slate-800 text-white shadow-sm">全て</button>
-                <button data-cat="Policy"
+                <button data-cat="基本計画"
+                    class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">基本計画</button>
+                <button data-cat="政策・制度"
                     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">政策・制度</button>
-                <button data-cat="Organization"
+                <button data-cat="組織・ネットワーク"
                     class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">組織・ネットワーク</button>
-                <button data-cat="Infrastructure"
-                    class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">システム・基盤</button>
+                <button data-cat="システム基盤"
+                    class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">システム基盤</button>
+                <button data-cat="その他"
+                    class="filter-btn px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-slate-100 text-slate-600">その他</button>
             </div>
             <div class="relative w-full md:w-64">
                 <input type="text" id="keyword-search" placeholder="検索..."
@@ -141,15 +140,17 @@
 
             // Category Styles
             const catStyles = {
-                Policy: 'bg-blue-50 text-blue-700 border-blue-100',
-                Organization: 'bg-emerald-50 text-emerald-700 border-emerald-100',
-                Infrastructure: 'bg-amber-50 text-amber-700 border-amber-100'
+                '基本計画': 'bg-purple-50 text-purple-700 border-purple-100',
+                '政策・制度': 'bg-blue-50 text-blue-700 border-blue-100',
+                '組織・ネットワーク': 'bg-emerald-50 text-emerald-700 border-emerald-100',
+                'システム基盤': 'bg-amber-50 text-amber-700 border-amber-100',
+                'その他': 'bg-slate-50 text-slate-700 border-slate-100'
             };
             const currentStyle = catStyles[eventData.category] || 'bg-slate-50 text-slate-700 border-slate-100';
 
             item.innerHTML = `
                 <!-- Timeline Dot (Mobile only at left, Desktop at center) -->
-                <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-primary -translate-x-1/2 top-4 md:top-8 z-20 shadow-sm transition-transform duration-300 hover:scale-125"></div>
+                <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full bg-white border-2 border-primary -translate-x-1/2 top-10 md:top-8 z-20 shadow-sm transition-transform duration-300 hover:scale-125"></div>
                 
                 <div class="w-full md:w-1/2 pl-16 pr-4 md:px-12 ${isEven ? 'md:order-last md:ml-auto' : 'md:mr-auto'}">
                     <div class="group relative bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
@@ -163,7 +164,7 @@
                         </div>
                         
                         <h3 class="text-xl font-bold mb-4 text-slate-800 leading-snug group-hover:text-primary transition-colors">
-                            ${eventData.title}
+                            ${eventData.url ? `<a href="${eventData.url}" target="_blank" class="hover:underline decoration-thickness-2">${eventData.title}</a>` : eventData.title}
                         </h3>
                         
                         <p class="text-sm leading-relaxed text-slate-500 font-medium">
@@ -200,9 +201,9 @@
             });
 
             // Hero animations
-            gsap.to("#hero-title", { opacity: 1, y: 0, from: { y: 20 }, duration: 1, delay: 0.2 });
-            gsap.to("#hero-subtitle", { opacity: 1, y: 0, from: { y: 10 }, duration: 1, delay: 0.5 });
-            gsap.to("#scroll-indicator", { opacity: 1, duration: 1, delay: 1 });
+            gsap.fromTo("#hero-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 0.2 });
+            gsap.fromTo("#hero-subtitle", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1, delay: 0.5 });
+            gsap.fromTo("#scroll-indicator", { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 });
         }
 
         // Search & Filter Logic
@@ -249,9 +250,7 @@
                 const resp = await fetch('data/history.json');
                 const data = await resp.json();
 
-                // Merge with local custom events (if existing)
-                const local = JSON.parse(localStorage.getItem('customHistoryEvents')) || [];
-                allEventsData = [...data, ...local].sort((a, b) => b.year - a.year);
+                allEventsData = data.sort((a, b) => b.year - a.year);
 
                 document.getElementById('loading-skeleton')?.remove();
                 renderTimeline();
