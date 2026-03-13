@@ -6,7 +6,8 @@
         "tag": "経営強化",
         "category": "組織・ネットワーク",
         "importance": "normal",
-        "iconType": "institution"
+        "category_icon": "institution",
+        "era_phase": "Innovation"
     },
     {
         "year": 2025,
@@ -15,7 +16,8 @@
         "tag": "コンプライアンス",
         "category": "その他",
         "importance": "normal",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Innovation"
     },
     {
         "year": 2024,
@@ -25,7 +27,8 @@
         "category": "組織・ネットワーク",
         "url": "https://www.mext.go.jp/b_menu/houdou/mext_01442.html",
         "importance": "high",
-        "iconType": "foundation"
+        "category_icon": "foundation",
+        "era_phase": "Innovation"
     },
     {
         "year": 2023,
@@ -35,7 +38,8 @@
         "category": "組織・ネットワーク",
         "url": "https://www.jsps.go.jp/j-chukaku/",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Innovation"
     },
     {
         "year": 2022,
@@ -45,17 +49,19 @@
         "category": "組織・ネットワーク",
         "url": "https://www.jst.go.jp/pr/fund/index.html",
         "importance": "high",
-        "iconType": "foundation"
+        "category_icon": "foundation",
+        "era_phase": "Innovation"
     },
     {
         "year": 2022,
         "title": "学術情報ネットワークSINET6の本格運用開始",
-        "description": "全国400Gbpsの超高速回線へ刷新。拠点数を拡大し、研究データ基盤（NII-RDC）と融合。データ駆動型研究時代に対応した世界最高水準の network インフラを提供。",
+        "description": "全国400Gbpsの超高速回線へ刷新。拠点数を拡大し、研究データ基盤（NII-RDC）と融合。データ駆動型研究時代に対応した世界最高水準のネットワークインフラを提供。",
         "tag": "インフラ刷新",
         "category": "システム基盤",
         "url": "https://www.sinet.ad.jp/",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Innovation"
     },
     {
         "year": 2021,
@@ -65,7 +71,8 @@
         "category": "政策・制度",
         "url": "https://laws.e-gov.go.jp/law/407AC1000000130",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Innovation"
     },
     {
         "year": 2021,
@@ -74,17 +81,19 @@
         "tag": "専門職確立",
         "category": "政策・制度",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Innovation"
     },
     {
         "year": 2021,
         "title": "第6期科学技術・イノベーション基本計画の策定",
-        "description": "Society 5.0の深化と、人文・社会科学を含む「総合知」による社会变革を強調。若手研究者の生活費相当額の支援拡充や、博士課程学生への経済支援の抜本強化を掲げた。",
+        "description": "Society 5.0の深化と、人文・社会科学を含む「総合知」による社会変革を強調。若手研究者の生活費相当額の支援拡充や、博士課程学生への経済支援の抜本強化を掲げた。",
         "tag": "基本計画",
         "category": "基本計画",
         "url": "https://www8.cao.go.jp/cstp/kihonkeikaku/index6.html",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Innovation"
     },
     {
         "year": 2021,
@@ -94,7 +103,8 @@
         "category": "システム基盤",
         "url": "https://nanonet.go.jp/",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Innovation"
     },
     {
         "year": 2020,
@@ -104,7 +114,8 @@
         "category": "政策・制度",
         "url": "https://www8.cao.go.jp/cstp/moonshot/index.html",
         "importance": "normal",
-        "iconType": "foundation"
+        "category_icon": "foundation",
+        "era_phase": "Transformation"
     },
     {
         "year": 2020,
@@ -114,7 +125,8 @@
         "category": "システム基盤",
         "url": "https://jstagedata.jst.go.jp/",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Transformation"
     },
     {
         "year": 2019,
@@ -124,7 +136,8 @@
         "category": "システム基盤",
         "url": "https://laws.e-gov.go.jp/law/420AC0100000063",
         "importance": "normal",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Transformation"
     },
     {
         "year": 2018,
@@ -134,7 +147,8 @@
         "category": "システム基盤",
         "url": "https://www.e-rad.go.jp/dl_file/particulars_e-rad.pdf",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Transformation"
     },
     {
         "year": 2016,
@@ -143,7 +157,8 @@
         "tag": "人材育成",
         "category": "政策・制度",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Transformation"
     },
     {
         "year": 2016,
@@ -153,7 +168,8 @@
         "category": "基本計画",
         "url": "https://www8.cao.go.jp/cstp/kihonkeikaku/5honbun.pdf",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Transformation"
     },
     {
         "year": 2016,
@@ -163,7 +179,8 @@
         "category": "システム基盤",
         "url": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/163/toushin/mext_00004.html",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Transformation"
     },
     {
         "year": 2015,
@@ -172,7 +189,8 @@
         "tag": "ネットワーク",
         "category": "システム基盤",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Transformation"
     },
     {
         "year": 2015,
@@ -182,7 +200,8 @@
         "category": "システム基盤",
         "url": "https://www.amed.go.jp/aboutus/",
         "importance": "high",
-        "iconType": "institution"
+        "category_icon": "institution",
+        "era_phase": "Transformation"
     },
     {
         "year": 2015,
@@ -192,7 +211,8 @@
         "category": "その他",
         "url": "https://www8.cao.go.jp/cstp/sonota/openscience/",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Transformation"
     },
     {
         "year": 2014,
@@ -202,7 +222,8 @@
         "category": "政策・制度",
         "url": "https://www8.cao.go.jp/cstp/gaiyo/sip/",
         "importance": "normal",
-        "iconType": "foundation"
+        "category_icon": "foundation",
+        "era_phase": "Transformation"
     },
     {
         "year": 2014,
@@ -212,7 +233,8 @@
         "category": "政策・制度",
         "url": "https://www.mext.go.jp/a_menu/jinzai/fusei/index.htm",
         "importance": "normal",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Transformation"
     },
     {
         "year": 2013,
@@ -222,7 +244,8 @@
         "category": "組織・ネットワーク",
         "url": "https://www.mext.go.jp/a_menu/kagaku/toplevel/1337424.htm",
         "importance": "high",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Transformation"
     },
     {
         "year": 2012,
@@ -232,7 +255,8 @@
         "category": "システム基盤",
         "url": "https://www.nims.go.jp/nanoplat/",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Transformation"
     },
     {
         "year": 2011,
@@ -242,7 +266,8 @@
         "category": "システム基盤",
         "url": "https://www.mext.go.jp/a_menu/jinzai/ura/index.htm",
         "importance": "high",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Foundation"
     },
     {
         "year": 2011,
@@ -252,7 +277,8 @@
         "category": "基本計画",
         "url": "https://www8.cao.go.jp/cstp/kihonkeikaku/4honbun.pdf",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Foundation"
     },
     {
         "year": 2011,
@@ -262,7 +288,8 @@
         "category": "システム基盤",
         "url": "https://researchmap.jp/",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Foundation"
     },
     {
         "year": 2010,
@@ -272,7 +299,8 @@
         "category": "システム基盤",
         "url": "https://www.gakunin.jp/fed",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Foundation"
     },
     {
         "year": 2009,
@@ -281,7 +309,8 @@
         "tag": "制度の芽生え",
         "category": "組織・ネットワーク",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Foundation"
     },
     {
         "year": 2008,
@@ -291,7 +320,8 @@
         "category": "システム基盤",
         "url": "https://www.e-rad.go.jp/about/history.html",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Foundation"
     },
     {
         "year": 2007,
@@ -301,7 +331,8 @@
         "category": "システム基盤",
         "url": "https://www.jsps.go.jp/j-toplevel/",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Foundation"
     },
     {
         "year": 2007,
@@ -311,7 +342,8 @@
         "category": "組織・ネットワーク",
         "url": "https://www.jsps.go.jp/j-gcoe/",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Foundation"
     },
     {
         "year": 2006,
@@ -321,7 +353,8 @@
         "category": "基本計画",
         "url": "https://www8.cao.go.jp/cstp/kihonkeikaku/kihon3.html",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Foundation"
     },
     {
         "year": 2005,
@@ -331,7 +364,8 @@
         "category": "政策・制度",
         "url": "https://www.scj.go.jp/ja/info/outline/history.html",
         "importance": "normal",
-        "iconType": "institution"
+        "category_icon": "institution",
+        "era_phase": "Origin"
     },
     {
         "year": 2004,
@@ -341,7 +375,8 @@
         "category": "組織・ネットワーク",
         "url": "https://laws.e-gov.go.jp/law/415AC1000000112",
         "importance": "high",
-        "iconType": "institution"
+        "category_icon": "institution",
+        "era_phase": "Origin"
     },
     {
         "year": 2003,
@@ -351,17 +386,19 @@
         "category": "組織・ネットワーク",
         "url": "https://www.jst.go.jp/all/about/enkaku.html",
         "importance": "high",
-        "iconType": "institution"
+        "category_icon": "institution",
+        "era_phase": "Origin"
     },
     {
         "year": 2003,
         "title": "知的財産戦略本部の設置",
-        "description": "知的財産基本法に基づき内閣に設置。「知的財産推進計画」を策定し、特許審査の迅速化や大学の知財管理体制ের整備などを全政府的に牽引する。",
+        "description": "知的財産基本法に基づき内閣に設置。「知的財産推進計画」を策定し、特許審査の迅速化や大学の知財管理体制の整備などを全政府的に牽引する。",
         "tag": "知財戦略",
         "category": "組織・ネットワーク",
         "url": "https://www.kantei.go.jp/jp/singi/titeki2/",
         "importance": "normal",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Origin"
     },
     {
         "year": 2002,
@@ -371,7 +408,8 @@
         "category": "組織・ネットワーク",
         "url": "https://laws.e-gov.go.jp/law/414AC0000000122",
         "importance": "normal",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Origin"
     },
     {
         "year": 2001,
@@ -381,7 +419,8 @@
         "category": "政策・制度",
         "url": "https://www8.cao.go.jp/cstp/index.html",
         "importance": "high",
-        "iconType": "institution"
+        "category_icon": "institution",
+        "era_phase": "Origin"
     },
     {
         "year": 2001,
@@ -391,7 +430,8 @@
         "category": "基本計画",
         "url": "https://www8.cao.go.jp/cstp/kihonkeikaku/kihon.html",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Origin"
     },
     {
         "year": 1999,
@@ -401,7 +441,8 @@
         "category": "システム基盤",
         "url": "https://www.jstage.jst.go.jp/browse/-char/ja",
         "importance": "normal",
-        "iconType": "digital"
+        "category_icon": "digital",
+        "era_phase": "Origin"
     },
     {
         "year": 1998,
@@ -411,7 +452,8 @@
         "category": "組織・ネットワーク",
         "url": "https://laws.e-gov.go.jp/law/410AC0000000052",
         "importance": "normal",
-        "iconType": "network"
+        "category_icon": "network",
+        "era_phase": "Origin"
     },
     {
         "year": 1996,
@@ -421,7 +463,8 @@
         "category": "基本計画",
         "url": "https://www.mext.go.jp/a_menu/kagaku/kihon/main5_a4.htm",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Origin"
     },
     {
         "year": 1995,
@@ -431,6 +474,7 @@
         "category": "基本計画",
         "url": "https://laws.e-gov.go.jp/law/407AC1000000130",
         "importance": "high",
-        "iconType": "policy"
+        "category_icon": "policy",
+        "era_phase": "Origin"
     }
 ]

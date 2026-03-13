@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Support History Archive</title>
+    <title>ResSupport Archive | History Navigator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@600;900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@600;900&family=Outfit:wght@300;400;700&display=swap"
         rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -18,12 +18,13 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        sans: ['Outfit', 'Inter', 'Noto Sans JP', 'sans-serif'],
                         serif: ['Noto Serif JP', 'serif'],
                     },
                     colors: {
-                        primary: '#009eb3',
-                        accent: '#ff007f',
+                        primary: '#00f5ff', // Electric Cyan
+                        vivid: '#ff00ff',   // Vivid Magenta
+                        academic: '#0f172a', // Slate 900
                     }
                 }
             }
@@ -31,83 +32,117 @@
     </script>
     <style>
         .timeline-line-gradient {
-            background: linear-gradient(to bottom, #cbd5e1 0%, #009eb3 20%, #ff007f 80%, transparent 100%);
+            background: linear-gradient(to bottom, #cbd5e1 0%, #00f5ff 20%, #ff00ff 80%, #cbd5e1 100%);
         }
         
-        /* Smooth scrolling for filter nav */
-        .hide-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .hide-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Glassmorphism card enhancement */
         .event-card {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        /* Typography adjustments */
         .prose-custom {
-            line-height: 1.75;
-            letter-spacing: 0.01em;
+            line-height: 1.85;
+            letter-spacing: 0.02em;
         }
 
-        /* High Importance Animation */
-        @keyframes pulse-border {
-            0% { border-color: rgba(0, 158, 179, 0.3); }
-            50% { border-color: rgba(0, 158, 179, 0.8); }
-            100% { border-color: rgba(0, 158, 179, 0.3); }
+        /* Saturation Decay Classes */
+        .era-saturation {
+            filter: saturate(var(--era-sat, 1)) grayscale(var(--era-gray, 0));
+            transition: filter 1s ease;
         }
-        .high-importance-glow {
-            animation: pulse-border 3s infinite;
+
+        /* Innovation Era Glow */
+        .modern-glow {
+            box-shadow: 0 0 40px -10px rgba(0, 245, 255, 0.3);
+            border-color: rgba(0, 245, 255, 0.4);
+        }
+
+        /* Filter Underline Interaction */
+        .filter-btn {
+            position: relative;
+        }
+        .filter-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 20%;
+            right: 20%;
+            height: 2px;
+            background: #00f5ff;
+            box-shadow: 0 0 10px #00f5ff;
+            border-radius: 2px;
+        }
+
+        /* Vertical Light Line for Milestones */
+        .milestone-light {
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #00f5ff, transparent);
+            box-shadow: 0 0 15px #00f5ff;
+        }
+        @media (min-width: 768px) {
+            .milestone-light { left: 50%; translate: -1px 0; }
         }
     </style>
 </head>
 
-<body class="overflow-x-hidden bg-stone-50 text-slate-800 font-sans selection:bg-primary selection:text-white">
+<body class="overflow-x-hidden bg-[#f8fafc] text-slate-900 font-sans selection:bg-primary selection:text-slate-900">
+
+    <!-- Brand Header -->
+    <header class="fixed top-0 left-0 right-0 z-[60] px-6 py-4 flex justify-between items-center pointer-events-none">
+        <div class="flex items-center gap-4 pointer-events-auto group">
+            <span class="text-xl font-black tracking-tighter text-slate-900">ResSupport <span class="text-primary group-hover:text-vivid transition-colors">Archive</span></span>
+            <div class="h-4 w-px bg-slate-200"></div>
+            <span class="text-[10px] uppercase tracking-[0.4em] text-slate-400 font-bold">History Navigator</span>
+        </div>
+    </header>
 
     <!-- Hero Header -->
     <header
-        class="relative h-[60vh] flex flex-col justify-center items-center text-center px-4 bg-gradient-to-br from-slate-100 to-stone-200">
-        <h1 class="text-5xl md:text-7xl font-serif font-black tracking-tighter mb-4 opacity-0" id="hero-title">
-            Historical Nav
+        class="relative h-[80vh] flex flex-col justify-center items-center text-center px-4 bg-[#f8fafc]">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 40px 40px;"></div>
+        <h1 class="text-6xl md:text-8xl font-serif font-black tracking-tighter mb-8 opacity-0" id="hero-title">
+            The Gradient <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-vivid">of Time</span>
         </h1>
-        <p class="text-lg md:text-xl text-slate-600 font-light tracking-widest opacity-0" id="hero-subtitle">
-            日本における研究支援の変遷を辿る
+        <p class="text-sm md:text-base text-slate-500 font-medium tracking-[0.5em] uppercase opacity-0" id="hero-subtitle">
+            日本の研究支援 変遷録
         </p>
-        <div class="absolute bottom-10 animate-bounce cursor-pointer flex flex-col items-center gap-2 opacity-0"
+        <div class="absolute bottom-20 animate-bounce cursor-pointer flex flex-col items-center gap-4 opacity-0"
             id="scroll-indicator">
-            <span class="text-[10px] uppercase tracking-[0.3em] text-slate-400">Scroll Down</span>
-            <svg class="w-6 h-6 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7"></path>
+            <span class="text-[9px] uppercase tracking-[0.5em] text-slate-400">Descend into History</span>
+            <svg class="w-8 h-8 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7-7-7"></path>
             </svg>
         </div>
     </header>
 
-    <!-- Sticky Navigation (Glassmorphism) -->
+    <!-- Sticky Navigation (Archive Filters) -->
     <nav
-        class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-xl border-b border-slate-200/60 shadow-sm transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col md:flex-row items-center gap-6">
-            <div class="w-full flex items-center gap-2 overflow-x-auto hide-scrollbar py-2 -my-2 md:flex-1">
+        class="sticky top-0 z-50 w-full bg-[#f8fafc]/80 backdrop-blur-2xl border-b border-slate-200/40 py-4">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8">
+            <div class="w-full flex items-center gap-4 overflow-x-auto hide-scrollbar md:flex-1">
                 <button data-cat="All"
-                    class="filter-btn active flex-shrink-0 px-5 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-slate-900 text-white shadow-lg shadow-slate-200 scale-105">全て</button>
+                    class="filter-btn active flex-shrink-0 px-2 py-1 text-sm font-bold transition-all duration-300 text-slate-900">全て</button>
                 <button data-cat="基本計画"
-                    class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:shadow-md hover:-translate-y-0.5 text-slate-500 hover:text-slate-800">基本計画</button>
+                    class="filter-btn flex-shrink-0 px-2 py-1 text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-slate-900">基本計画</button>
                 <button data-cat="政策・制度"
-                    class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:shadow-md hover:-translate-y-0.5 text-slate-500 hover:text-slate-800">政策・制度</button>
+                    class="filter-btn flex-shrink-0 px-2 py-1 text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-slate-900">政策・制度</button>
                 <button data-cat="組織・ネットワーク"
-                    class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:shadow-md hover:-translate-y-0.5 text-slate-500 hover:text-slate-800">組織・ネットワーク</button>
+                    class="filter-btn flex-shrink-0 px-2 py-1 text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-slate-900">組織・ネットワーク</button>
                 <button data-cat="システム基盤"
-                    class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:shadow-md hover:-translate-y-0.5 text-slate-500 hover:text-slate-800">システム基盤</button>
+                    class="filter-btn flex-shrink-0 px-2 py-1 text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-slate-900">システム基盤</button>
                 <button data-cat="その他"
-                    class="filter-btn flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white hover:shadow-md hover:-translate-y-0.5 text-slate-500 hover:text-slate-800">その他</button>
+                    class="filter-btn flex-shrink-0 px-2 py-1 text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-slate-900">その他</button>
             </div>
-            <div class="relative w-full md:w-72">
-                <input type="text" id="keyword-search" placeholder="キーワードで探す..."
-                    class="w-full bg-slate-100/50 border border-slate-200/50 rounded-2xl px-5 py-2.5 text-sm focus:outline-none focus:ring-4 focus:ring-primary/10 focus:border-primary/50 focus:bg-white transition-all placeholder-slate-400">
-                <svg class="absolute right-4 top-3 w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
+            <div class="relative w-full md:w-80">
+                <input type="text" id="keyword-search" placeholder="図録から検索..."
+                    class="w-full bg-slate-200/50 border-none rounded-2xl px-6 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all placeholder-slate-400 font-medium">
+                <svg class="absolute right-5 top-3.5 w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -144,9 +179,18 @@
         </div>
     </main>
 
-    <footer class="h-[60vh] flex flex-col justify-center items-center bg-stone-100 text-center px-4">
-        <p class="text-2xl font-serif text-slate-400">そして、時は続く...</p>
-        <div class="mt-8 text-xs text-slate-300 uppercase tracking-widest">© Research Support History Archive</div>
+    <footer class="h-[80vh] flex flex-col justify-center items-center bg-white text-center px-4 relative">
+        <div class="max-w-xl">
+            <p class="text-3xl md:text-5xl font-serif font-black text-slate-200 leading-tight mb-8">
+                歴史の源流へ辿り着きました。<br>
+                <span class="text-lg font-sans tracking-[0.3em] font-light text-slate-400 uppercase">To the Origins of Research Support</span>
+            </p>
+            <div class="flex items-center justify-center gap-4 text-[10px] text-slate-300 uppercase tracking-widest font-bold">
+                <span>ResSupport Archive</span>
+                <span class="h-1 w-1 bg-slate-200 rounded-full"></span>
+                <span>© 2026</span>
+            </div>
+        </div>
     </footer>
 
     <script>
@@ -160,84 +204,82 @@
         let allEventsData = [];
         let currentFilter = 'All';
 
+        // Calculation for Saturation Decay
+        function getSaturationStyles(year) {
+            // 2025 -> 1.0 (Full Color)
+            // 1995 -> 0.0 (Monochrome)
+            const minYear = 1995;
+            const maxYear = 2025;
+            const factor = Math.max(0, Math.min(1, (year - minYear) / (maxYear - minYear)));
+            
+            return {
+                sat: factor,
+                gray: 1 - factor
+            };
+        }
+
         // Event Element Creator (Zigzag)
         function createEventElement(eventData, index) {
             const isEven = index % 2 === 1;
             const isHigh = eventData.importance === 'high';
+            const isModern = eventData.era_phase === 'Innovation';
             const item = document.createElement('div');
-            item.className = `event-item flex flex-col md:flex-row w-full relative z-10 transition-all duration-700 transform translate-y-20 opacity-0`;
+            
+            const styles = getSaturationStyles(eventData.year);
+            item.style.setProperty('--era-sat', styles.sat);
+            item.style.setProperty('--era-gray', styles.gray);
+
+            item.className = `event-item era-saturation flex flex-col md:flex-row w-full relative z-10 transition-all duration-1000 transform translate-y-20 opacity-0`;
             item.setAttribute('data-year', eventData.year);
             item.setAttribute('data-index', index);
 
-            // Category Styles
-            const catStyles = {
-                '基本計画': 'bg-purple-50 text-purple-700 border-purple-100',
-                '政策・制度': 'bg-blue-50 text-blue-700 border-blue-100',
-                '組織・ネットワーク': 'bg-emerald-50 text-emerald-700 border-emerald-100',
-                'システム基盤': 'bg-amber-50 text-amber-700 border-amber-100',
-                'その他': 'bg-slate-50 text-slate-700 border-slate-100'
-            };
-            const currentStyle = catStyles[eventData.category] || 'bg-slate-50 text-slate-700 border-slate-100';
-
-            // Icons
+            // Category Icons (Advanced)
             const icons = {
-                'policy': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
-                'institution': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>`,
-                'network': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
-                'foundation': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16V15m-1.292-1.292a1.292 1.292 0 101.825 1.825 1.292 1.292 0 00-1.825-1.825z"></path></svg>`,
-                'digital': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`,
-                'other': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z"></path></svg>`
+                'policy': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
+                'institution': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>`,
+                'network': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
+                'foundation': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16V15m-1.292-1.292a1.292 1.292 0 101.825 1.825 1.292 1.292 0 00-1.825-1.825z"></path></svg>`,
+                'digital': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`
             };
-            const currentIcon = icons[eventData.iconType] || icons['other'];
+            const currentIcon = icons[eventData.category_icon] || icons['policy'];
 
-            const cardClass = isHigh 
-                ? 'bg-slate-900 text-white p-8 md:p-12 border-none shadow-2xl scale-105 high-importance-glow' 
-                : 'bg-white p-6 md:p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:-translate-y-1';
-
-            const titleClass = isHigh 
-                ? 'text-2xl md:text-3xl font-black text-white hover:text-primary' 
-                : 'text-xl font-bold text-slate-800 hover:text-primary';
-
-            const descriptionClass = isHigh
-                ? 'text-slate-300 font-normal opacity-90'
-                : 'text-slate-500 font-medium';
-
-            const dotClass = isHigh
-                ? 'bg-primary scale-150 ring-4 ring-primary/20'
-                : 'bg-white border-2 border-primary';
+            const cardBaseClass = `group relative rounded-[2rem] overflow-hidden event-card bg-white transition-all duration-700`;
+            const cardModernClass = isModern ? 'modern-glow border-primary/20 scale-[1.02]' : 'border-slate-100 shadow-sm';
+            const cardHighClass = isHigh ? 'p-10 md:p-14 border-none shadow-2xl ring-1 ring-slate-100' : 'p-8 md:p-10 border';
 
             item.innerHTML = `
-                <!-- Timeline Dot -->
-                <div class="absolute left-8 md:left-1/2 w-4 h-4 rounded-full ${dotClass} -translate-x-1/2 top-10 md:top-8 z-20 shadow-sm transition-transform duration-300 hover:scale-125"></div>
+                ${isHigh ? `<div class="milestone-light hide md:block"></div>` : ''}
                 
-                <div class="w-full md:w-1/2 pl-16 pr-4 md:px-12 ${isEven ? 'md:order-last md:ml-auto' : 'md:mr-auto'}">
-                    <div class="group relative rounded-3xl overflow-hidden event-card ${cardClass} transition-all duration-300">
-                        ${!isHigh ? `<div class="absolute top-0 left-0 w-1.5 h-full bg-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>` : ''}
+                <!-- Timeline Dot -->
+                <div class="absolute left-8 md:left-1/2 w-3 h-3 rounded-full bg-slate-900 -translate-x-1/2 top-12 md:top-10 z-20 shadow-xl border-4 border-white"></div>
+                
+                <div class="w-full md:w-1/2 pl-16 pr-6 md:px-16 ${isEven ? 'md:order-last md:ml-auto' : 'md:mr-auto'}">
+                    <div class="${cardBaseClass} ${cardModernClass} ${cardHighClass} hover:shadow-2xl hover:-translate-y-2">
                         
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                            <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-2xl flex items-center justify-center ${isHigh ? 'bg-white/10 text-white' : 'bg-slate-50 text-slate-400 group-hover:bg-primary/10 group-hover:text-primary'} transition-colors">
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-10">
+                            <div class="flex items-center gap-6">
+                                <div class="w-12 h-12 rounded-2xl flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-primary/10 group-hover:text-primary transition-all duration-500 scale-110">
                                     ${currentIcon}
                                 </div>
-                                <span class="text-3xl md:text-4xl font-serif font-black ${isHigh ? 'text-white' : 'text-slate-900'} leading-none">${eventData.year}</span>
+                                <span class="text-4xl md:text-5xl font-serif font-black text-slate-900 tracking-tighter leading-none">${eventData.year}</span>
                             </div>
-                            <span class="inline-block px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-widest ${currentStyle} border self-start sm:self-center">
+                            <span class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 border border-slate-100 px-3 py-1 rounded-full whitespace-nowrap">
                                 ${eventData.tag}
                             </span>
                         </div>
                         
-                        <h3 class="${titleClass} mb-4 leading-tight transition-colors">
-                            ${eventData.url ? `<a href="${eventData.url}" target="_blank" class="hover:underline decoration-thickness-2">${eventData.title}</a>` : eventData.title}
+                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-6 leading-[1.2] group-hover:text-primary transition-colors">
+                            ${eventData.url ? `<a href="${eventData.url}" target="_blank" class="hover:underline underline-offset-8 decoration-1">${eventData.title}</a>` : eventData.title}
                         </h3>
                         
-                        <p class="text-base md:text-lg prose-custom ${descriptionClass}">
+                        <p class="text-sm md:text-base prose-custom text-slate-500 font-medium">
                             ${eventData.description}
                         </p>
                         
                         ${isHigh ? `
-                        <div class="mt-8 pt-8 border-t border-white/10 flex items-center gap-2 text-primary text-xs font-bold uppercase tracking-widest">
-                            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                            Major Milestone
+                        <div class="mt-8 pt-8 border-t border-slate-50 flex items-center gap-4">
+                            <span class="text-[9px] font-bold text-vivid uppercase tracking-[0.5em]">Critical Milestone</span>
+                            <div class="flex-1 h-px bg-gradient-to-r from-vivid/20 to-transparent"></div>
                         </div>
                         ` : ''}
                     </div>
@@ -249,20 +291,18 @@
         // Initialize GSAP
         function initGSAP() {
             ScrollTrigger.getAll().forEach(t => t.kill());
-
             const items = document.querySelectorAll('.event-item');
 
             items.forEach((item, i) => {
                 const year = item.getAttribute('data-year');
-
                 gsap.to(item, {
                     opacity: 1,
                     y: 0,
-                    duration: 0.8,
-                    ease: "power2.out",
+                    duration: 1.2,
+                    ease: "power4.out",
                     scrollTrigger: {
                         trigger: item,
-                        start: "top 85%",
+                        start: "top 90%",
                         toggleActions: "play none none none",
                         onEnter: () => floatingYear.innerText = year,
                         onEnterBack: () => floatingYear.innerText = year,
@@ -271,9 +311,9 @@
             });
 
             // Hero animations
-            gsap.fromTo("#hero-title", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1, delay: 0.2 });
-            gsap.fromTo("#hero-subtitle", { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 1, delay: 0.5 });
-            gsap.fromTo("#scroll-indicator", { opacity: 0 }, { opacity: 1, duration: 1, delay: 1 });
+            gsap.fromTo("#hero-title", { opacity: 0, y: 40, filter: 'blur(20px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.5, delay: 0.2, ease: "power4.out" });
+            gsap.fromTo("#hero-subtitle", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1.2, delay: 0.6 });
+            gsap.fromTo("#scroll-indicator", { opacity: 0 }, { opacity: 1, duration: 2, delay: 1.2 });
         }
 
         // Search & Filter Logic
@@ -289,7 +329,7 @@
 
             eventsWrapper.innerHTML = '';
             if (filtered.length === 0) {
-                eventsWrapper.innerHTML = '<div class="text-center py-20 text-slate-400">検索結果が見つかりませんでした。</div>';
+                eventsWrapper.innerHTML = '<div class="text-center py-40 text-slate-300 font-serif italic text-xl">アーカイブに該当する記録は見つかりませんでした。</div>';
             } else {
                 filtered.forEach((e, idx) => {
                     eventsWrapper.appendChild(createEventElement(e, idx));
@@ -302,17 +342,15 @@
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => {
-                    b.classList.remove('bg-slate-900', 'text-white', 'shadow-lg', 'shadow-slate-200', 'scale-105', 'font-semibold');
-                    b.classList.add('hover:bg-white', 'hover:shadow-md', 'hover:-translate-y-0.5', 'text-slate-500', 'font-medium');
+                    b.classList.remove('active', 'text-slate-900');
+                    b.classList.add('text-slate-400');
                 });
 
-                btn.classList.add('bg-slate-900', 'text-white', 'shadow-lg', 'shadow-slate-200', 'scale-105', 'font-semibold');
-                btn.classList.remove('hover:bg-white', 'hover:shadow-md', 'hover:-translate-y-0.5', 'text-slate-500', 'font-medium');
+                btn.classList.add('active', 'text-slate-900');
+                btn.classList.remove('text-slate-400');
 
                 currentFilter = btn.getAttribute('data-cat');
                 renderTimeline();
-                
-                // Scroll to active button if on mobile
                 btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             });
         });
@@ -324,14 +362,12 @@
             try {
                 const resp = await fetch('data/history.json');
                 const data = await resp.json();
-
                 allEventsData = data.sort((a, b) => b.year - a.year);
-
                 document.getElementById('loading-skeleton')?.remove();
                 renderTimeline();
             } catch (err) {
                 console.error(err);
-                eventsWrapper.innerHTML = '<div class="text-red-500 text-center py-20">データの読み込みに失敗しました。</div>';
+                eventsWrapper.innerHTML = '<div class="text-red-400 text-center py-20 font-serif">資料の読み込み中にエラーが発生しました。</div>';
             }
         }
 
