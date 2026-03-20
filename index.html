@@ -137,6 +137,12 @@
         <div
             class="absolute left-8 md:left-1/2 top-0 bottom-10 w-px md:w-0.5 timeline-line-gradient -translate-x-1/2 z-0">
         </div>
+        
+        <!-- Year Indicator (Floating side) -->
+        <div class="fixed left-4 md:left-auto md:right-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+            <span id="floating-year"
+                class="text-8xl md:text-[15rem] font-serif font-black text-slate-200/40 tabular-nums leading-none">2025</span>
+        </div>
 
 
 
@@ -172,7 +178,7 @@
         gsap.registerPlugin(ScrollTrigger);
 
         const eventsWrapper = document.getElementById('events-wrapper');
-
+        const floatingYear = document.getElementById('floating-year');
         const keywordSearch = document.getElementById('keyword-search');
         const filterBtns = document.querySelectorAll('.filter-btn');
 
@@ -204,7 +210,7 @@
             item.style.setProperty('--era-sat', styles.sat);
             item.style.setProperty('--era-gray', styles.gray);
 
-            item.className = `event-item era-saturation flex flex-col md:flex-row w-full relative z-10 transition-all duration-500 transform translate-y-20 opacity-0`;
+            item.className = `event-item era-saturation flex flex-col md:flex-row w-full relative z-10 transition-all duration-300 transform translate-y-8 opacity-0`;
             item.setAttribute('data-year', eventData.year);
             item.setAttribute('data-index', index);
 
@@ -268,12 +274,14 @@
                 gsap.to(item, {
                     opacity: 1,
                     y: 0,
-                    duration: 0.8,
-                    ease: "power4.out",
+                    duration: 0.5,
+                    ease: "power2.out",
                     scrollTrigger: {
                         trigger: item,
-                        start: "top 70%",
+                        start: "top 85%",
                         toggleActions: "play none none none",
+                        onEnter: () => floatingYear.innerText = year,
+                        onEnterBack: () => floatingYear.innerText = year,
                     }
                 });
             });
