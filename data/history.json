@@ -2,7 +2,7 @@
     {
         "year": 2025,
         "category": "組織・ネットワーク",
-        "category_icon": "institution",
+        "category_icon": "network",
         "title": "国立大学法人支援パッケージの拡充",
         "url": "",
         "description": "物価高騰や人件費増に対応するため、運営費交付金の見直しと戦略的・重点的支援の枠組みが強化。大学の経営自律性がより求められるフェーズへ。",
@@ -13,7 +13,7 @@
     {
         "year": 2025,
         "category": "その他",
-        "category_icon": "policy",
+        "category_icon": "institution",
         "title": "研究インテグリティ・安全保障輸出管理の厳格化",
         "url": "",
         "description": "国際的な研究協力におけるリスク管理が強化され、URAによる国内外の共同研究審査・管理業務の重要性が一層高まる。",
@@ -24,7 +24,7 @@
     {
         "year": 2024,
         "category": "組織・ネットワーク",
-        "category_icon": "foundation",
+        "category_icon": "network",
         "title": "国際卓越研究大学の第1号（東北大学）認定",
         "url": "https://www.mext.go.jp/b_menu/houdou/mext_01442.html",
         "description": "大学ファンドによる助成を受ける最初の大学として選定。世界最高水準の研究実績とガバナンス変革の意思を認められ、若手処遇改善や研究環境の抜本強化に着手した。",
@@ -46,7 +46,7 @@
     {
         "year": 2022,
         "category": "組織・ネットワーク",
-        "category_icon": "foundation",
+        "category_icon": "network",
         "title": "10兆円規模の「大学ファンド」運用開始",
         "url": "https://www.jst.go.jp/pr/fund/index.html",
         "description": "JSTに設置された巨額基金の運用益で世界トップレベルの研究大学を長期・安定的に支援。欧米並みの基金運用による研究基盤の抜本的強化を目指す日本初の試み。",
@@ -68,7 +68,7 @@
     {
         "year": 2021,
         "category": "政策・制度",
-        "category_icon": "policy",
+        "category_icon": "foundation",
         "title": "科学技術・イノベーション基本法への改正施行",
         "url": "https://laws.e-gov.go.jp/law/407AC1000000130",
         "description": "基本法を25年ぶりに抜本改正。対象に「人文科学のみ」を追加し「総合知」による社会課題解決を定義。イノベーション創出を国の責務として正式に位置づけた。",
@@ -79,7 +79,7 @@
     {
         "year": 2021,
         "category": "政策・制度",
-        "category_icon": "network",
+        "category_icon": "foundation",
         "title": "URA認定制度の本格導入に向けた議論",
         "url": "",
         "description": "文部科学省を中心に、URAの質の保証と専門職としての定着に向けた認定制度の議論が進められ、標準スキルと認定プロセスの枠組みが整備され始める。",
@@ -134,7 +134,7 @@
     {
         "year": 2019,
         "category": "システム基盤",
-        "category_icon": "policy",
+        "category_icon": "digital",
         "title": "科学技術・イノベーション創出活性化法の施行",
         "url": "https://laws.e-gov.go.jp/law/420AC0100000063",
         "description": "研究開発システムの改革を推進する法律。国立研究開発法人の出資機能強化や、SBIR制度の見直し、若手研究者の処遇改善などが法的に位置づけられた。",
@@ -156,7 +156,7 @@
     {
         "year": 2016,
         "category": "政策・制度",
-        "category_icon": "network",
+        "category_icon": "foundation",
         "title": "URAスキル標準の策定",
         "url": "",
         "description": "文部科学省の支援により、URAに求められる業務内容とスキルの標準ガイドラインが策定され、全国的な能力開発の指標となる。",
@@ -178,7 +178,7 @@
     {
         "year": 2016,
         "category": "システム基盤",
-        "category_icon": "network",
+        "category_icon": "digital",
         "title": "研究設備・機器の共用推進ガイドラインの公表",
         "url": "https://www.mext.go.jp/b_menu/shingi/chousa/shotou/163/toushin/mext_00004.html",
         "description": "高額な研究設備の「3C（Campus-wide, Center-oriented, Core-facility）」共用スキームを提示。組織的な共用体制への転換を促し、若手研究者の環境改善を目指した。",
@@ -189,7 +189,7 @@
     {
         "year": 2015,
         "category": "システム基盤",
-        "category_icon": "network",
+        "category_icon": "digital",
         "title": "RA協議会（現：一般社団法人）設立",
         "url": "",
         "description": "日本で唯一のRA/URA実務者のネットワーク組織が誕生。研究マネジメントの職能確立と普及を担う。",
@@ -200,7 +200,7 @@
     {
         "year": 2015,
         "category": "システム基盤",
-        "category_icon": "institution",
+        "category_icon": "digital",
         "title": "日本医療研究開発機構（AMED）の設立",
         "url": "https://www.amed.go.jp/aboutus/",
         "description": "医療分野の研究開発予算を3省から一元化。基礎研究から臨床、実用化までを「死の谷」なく繋ぐ司令塔として機能し、革新的な医薬品・医療機器の創出を加速させた。",
@@ -211,7 +211,7 @@
     {
         "year": 2015,
         "category": "その他",
-        "category_icon": "digital",
+        "category_icon": "institution",
         "title": "オープンサイエンス推進に関する報告書の公表",
         "url": "https://www8.cao.go.jp/cstp/sonota/openscience/",
         "description": "内閣府の検討会が研究データの公開・共有に向けた基本的考え方を提示。公的資金による研究成果の社会共有を加速させ、データ駆動型研究の基盤整備を公式に開始した。",
@@ -233,7 +233,7 @@
     {
         "year": 2014,
         "category": "政策・制度",
-        "category_icon": "policy",
+        "category_icon": "foundation",
         "title": "研究活動における不正行為への対応ガイドライン改正",
         "url": "https://www.mext.go.jp/a_menu/jinzai/fusei/index.htm",
         "description": "研究不正の深刻化を受け、捏造・改ざん・盗用への厳格な対応方針を提示。各機関への倫理教育の義務付けなど、公正な研究活動の維持に向けた体制を整備した。",
@@ -255,7 +255,7 @@
     {
         "year": 2012,
         "category": "システム基盤",
-        "category_icon": "network",
+        "category_icon": "digital",
         "title": "ナノテクノロジープラットフォーム事業の開始",
         "url": "https://www.nims.go.jp/nanoplat/",
         "description": "全国の最先端のナノテク設備を外部へ開放し、産学官の共用を促進。分野融合やイノベーションの土壌となる機器共用ネットワークを構築した。",
@@ -266,7 +266,7 @@
     {
         "year": 2011,
         "category": "システム基盤",
-        "category_icon": "network",
+        "category_icon": "digital",
         "title": "URA育成・確保システム整備事業の開始",
         "url": "https://www.mext.go.jp/a_menu/jinzai/ura/index.htm",
         "description": "文部科学省が研究大学へのURA（リサーチ・アドミニストレーター）配置を支援。研究マネジメントの専門職を確立し、研究者の事務負担軽減と研究力強化を組織的に推進した。",
@@ -332,7 +332,7 @@
     {
         "year": 2007,
         "category": "システム基盤",
-        "category_icon": "network",
+        "category_icon": "digital",
         "title": "世界トップレベル研究拠点形成促進プログラム（WPI）開始",
         "url": "https://www.jsps.go.jp/j-toplevel/",
         "description": "「目に見える研究拠点」の形成を目指し、世界トップクラスの外国人研究者が集う国際的な研究環境を構築。日本の研究環境の国際化とシステム改革の先導役となった。",
@@ -365,7 +365,7 @@
     {
         "year": 2005,
         "category": "政策・制度",
-        "category_icon": "institution",
+        "category_icon": "foundation",
         "title": "日本学術会議の組織刷新",
         "url": "https://www.scj.go.jp/ja/info/outline/history.html",
         "description": "学術会議法改正により、会員選出を公選制からコ・オプテーション制へ変更。政府への提言機能と国際的なアカデミー活動の強化を図った。",
@@ -376,7 +376,7 @@
     {
         "year": 2004,
         "category": "組織・ネットワーク",
-        "category_icon": "institution",
+        "category_icon": "network",
         "title": "国立大学の法人化",
         "url": "https://laws.e-gov.go.jp/law/415AC1000000112",
         "description": "全国立大学を「国立大学法人」へ移行。各大学に独立した法人格と経営の裁量権を付与。自律的な学内資源配分と研究環境の整備が求められた。",
@@ -387,7 +387,7 @@
     {
         "year": 2003,
         "category": "組織・ネットワーク",
-        "category_icon": "institution",
+        "category_icon": "network",
         "title": "独立行政法人科学技術振興機構（JST）の設立",
         "url": "https://www.jst.go.jp/all/about/enkaku.html",
         "description": "科学技術振興事業団を改編。戦略的創造研究推進事業などを通じ、政策課題に即した基礎研究の推進や科学技術情報の流通、産学連携支援を担う中核機関となった。",
@@ -398,7 +398,7 @@
     {
         "year": 2003,
         "category": "組織・ネットワーク",
-        "category_icon": "policy",
+        "category_icon": "network",
         "title": "知的財産戦略本部の設置",
         "url": "https://www.kantei.go.jp/jp/singi/titeki2/",
         "description": "知的財産基本法に基づき内閣に設置。「知的財産推進計画」を策定し、特許審査の迅速化や大学の知財管理体制の整備などを全政府的に牽引する。",
@@ -409,7 +409,7 @@
     {
         "year": 2002,
         "category": "組織・ネットワーク",
-        "category_icon": "policy",
+        "category_icon": "network",
         "title": "知的財産基本法の施行",
         "url": "https://laws.e-gov.go.jp/law/414AC0000000122",
         "description": "知的財産の創造・保護・活用を国家戦略として推進。大学等における職務発明の取り扱いや産学連携の強化を促し、知的創造サイクルの活性化を目指した。",
@@ -420,7 +420,7 @@
     {
         "year": 2001,
         "category": "政策・制度",
-        "category_icon": "institution",
+        "category_icon": "foundation",
         "title": "文部科学省の発足と省庁再編",
         "url": "https://www8.cao.go.jp/cstp/index.html",
         "description": "中央省庁再編により文部省と科学技術庁が統合。日本の教育・科学技術政策の司令塔機能が一元化された。内閣府には総合科学技術会議（CSTP）も設置。",
