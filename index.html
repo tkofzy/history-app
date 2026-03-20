@@ -55,8 +55,8 @@
 
         /* Innovation Era Glow */
         .modern-glow {
-            box-shadow: 0 0 40px -10px rgba(0, 245, 255, 0.3);
-            border-color: rgba(0, 245, 255, 0.4);
+            box-shadow: 0 0 30px -10px rgba(0, 245, 255, 0.2);
+            border-color: rgba(0, 245, 255, 0.2);
         }
 
         /* Filter Underline Interaction */
@@ -73,6 +73,16 @@
             background: #00f5ff;
             box-shadow: 0 0 10px #00f5ff;
             border-radius: 2px;
+        }
+
+        /* Year Scale Styles */
+        .year-scale-item {
+            transition: all 0.3s ease;
+        }
+        .year-scale-item.active {
+            color: #00f5ff;
+            font-weight: 800;
+            transform: translateX(-5px);
         }
     </style>
 </head>
@@ -133,15 +143,20 @@
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-20 relative min-h-screen">
 
-        <!-- Center Timeline Line -->
+        <!-- Left Timeline Line (Editorial Axis) -->
         <div
-            class="absolute left-8 md:left-1/2 top-0 bottom-10 w-px md:w-0.5 timeline-line-gradient -translate-x-1/2 z-0">
+            class="absolute left-8 md:left-24 top-0 bottom-10 w-px md:w-0.5 timeline-line-gradient -translate-x-1/2 z-0">
         </div>
         
-        <!-- Year Indicator (Floating side) -->
-        <div class="fixed left-4 md:left-auto md:right-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
+        <!-- Year Indicator (Floating Side - Adjusted) -->
+        <div class="fixed left-4 md:left-6 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none opacity-20">
             <span id="floating-year"
-                class="text-8xl md:text-[15rem] font-serif font-black text-slate-200/40 tabular-nums leading-none">2025</span>
+                class="text-8xl md:text-[12rem] font-serif font-black text-slate-200 tabular-nums leading-none">2025</span>
+        </div>
+        
+        <!-- Vertical Year Scale (Right Sidebar) -->
+        <div class="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col items-end gap-2 text-[10px] font-bold text-slate-300 pointer-events-none" id="year-scale">
+            <!-- Dynamically populated -->
         </div>
 
 
@@ -185,21 +200,17 @@
 
         // Calculation for Saturation Decay
         function getSaturationStyles(year) {
-            // 2025 -> 1.0 (Full Color)
-            // 1995 -> 0.0 (Monochrome)
             const minYear = 1995;
             const maxYear = 2025;
             const factor = Math.max(0, Math.min(1, (year - minYear) / (maxYear - minYear)));
-            
             return {
                 sat: factor,
                 gray: 1 - factor
             };
         }
 
-        // Event Element Creator (Zigzag)
+        // Event Element Creator (Editorial)
         function createEventElement(eventData, index) {
-            const isEven = index % 2 === 1;
             const isHigh = eventData.importance === 'high';
             const isModern = eventData.era_phase === 'Innovation';
             const item = document.createElement('div');
@@ -208,11 +219,10 @@
             item.style.setProperty('--era-sat', styles.sat);
             item.style.setProperty('--era-gray', styles.gray);
 
-            item.className = `event-item era-saturation flex flex-col md:flex-row w-full relative z-10 transition-all duration-300 transform translate-y-2 opacity-0`;
+            item.className = `event-item era-saturation flex flex-col w-full relative z-10 transition-all duration-300 transform translate-y-2 opacity-0`;
             item.setAttribute('data-year', eventData.year);
             item.setAttribute('data-index', index);
 
-            // Category Icons (Advanced)
             const icons = {
                 'policy': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
                 'institution': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>`,
@@ -223,15 +233,15 @@
             const currentIcon = icons[eventData.category_icon] || icons['policy'];
 
             const cardBaseClass = `group relative rounded-[2rem] overflow-hidden event-card bg-white transition-all duration-300`;
-            const cardModernClass = isModern ? 'modern-glow border-primary/20 scale-[1.02]' : 'border-slate-100 shadow-sm';
+            const cardModernClass = isModern ? 'modern-glow border-primary/10' : 'border-slate-100 shadow-sm';
             const cardHighClass = isHigh ? 'p-10 md:p-14 border-none shadow-2xl ring-1 ring-slate-100' : 'p-8 md:p-10 border';
 
             item.innerHTML = `
                 <!-- Timeline Dot -->
-                <div class="absolute left-8 md:left-1/2 w-3 h-3 rounded-full bg-slate-900 -translate-x-1/2 top-12 md:top-10 z-20 shadow-xl border-4 border-white"></div>
+                <div class="absolute left-8 md:left-24 w-3 h-3 rounded-full bg-slate-900 -translate-x-1/2 top-12 md:top-10 z-20 shadow-xl border-4 border-white"></div>
                 
-                <div class="w-full md:w-1/2 pl-16 pr-6 md:px-16 ${isEven ? 'md:order-last md:ml-auto' : 'md:mr-auto'}">
-                    <div class="${cardBaseClass} ${cardModernClass} ${cardHighClass} hover:shadow-2xl hover:-translate-y-2">
+                <div class="w-full pl-16 pr-6 md:pl-48 md:pr-12">
+                    <div class="${cardBaseClass} ${cardModernClass} ${cardHighClass} hover:shadow-2xl hover:-translate-y-1 max-w-4xl">
                         
                         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-10">
                             <div class="flex items-center gap-6">
@@ -278,11 +288,44 @@
                         trigger: item,
                         start: "top 85%",
                         toggleActions: "play none none none",
-                        onEnter: () => floatingYear.innerText = year,
-                        onEnterBack: () => floatingYear.innerText = year,
+                        onEnter: () => {
+                            floatingYear.innerText = year;
+                            updateYearScale(year);
+                        },
+                        onEnterBack: () => {
+                            floatingYear.innerText = year;
+                            updateYearScale(year);
+                        },
                     }
                 });
             });
+
+            // Initialize Year Scale
+            function initYearScale() {
+                const scale = document.getElementById('year-scale');
+                const start = 1995;
+                const end = 2025;
+                scale.innerHTML = '';
+                for (let y = end; y >= start; y -= 5) {
+                    const el = document.createElement('div');
+                    el.className = `year-scale-item cursor-pointer`;
+                    el.setAttribute('data-target-year', y);
+                    el.innerText = y;
+                    scale.appendChild(el);
+                }
+            }
+
+            function updateYearScale(year) {
+                document.querySelectorAll('.year-scale-item').forEach(el => {
+                    const target = parseInt(el.getAttribute('data-target-year'));
+                    if (Math.abs(target - year) < 3) {
+                        el.classList.add('active');
+                    } else {
+                        el.classList.remove('active');
+                    }
+                });
+            }
+            initYearScale();
 
             // Hero animations
             gsap.fromTo("#hero-title", { opacity: 0, y: 40, filter: 'blur(20px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.5, delay: 0.2, ease: "power4.out" });
