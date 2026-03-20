@@ -138,11 +138,7 @@
             class="absolute left-8 md:left-1/2 top-0 bottom-10 w-px md:w-0.5 timeline-line-gradient -translate-x-1/2 z-0">
         </div>
 
-        <!-- Year Indicator (Floating side) -->
-        <div class="fixed left-4 md:left-auto md:right-10 top-1/2 -translate-y-1/2 z-0 pointer-events-none select-none">
-            <span id="floating-year"
-                class="text-8xl md:text-[15rem] font-serif font-black text-slate-200/40 tabular-nums leading-none">2025</span>
-        </div>
+
 
         <!-- Events Container -->
         <div id="events-wrapper" class="relative z-10 space-y-24 md:space-y-32">
@@ -176,7 +172,7 @@
         gsap.registerPlugin(ScrollTrigger);
 
         const eventsWrapper = document.getElementById('events-wrapper');
-        const floatingYear = document.getElementById('floating-year');
+
         const keywordSearch = document.getElementById('keyword-search');
         const filterBtns = document.querySelectorAll('.filter-btn');
 
@@ -278,8 +274,6 @@
                         trigger: item,
                         start: "top 70%",
                         toggleActions: "play none none none",
-                        onEnter: () => floatingYear.innerText = year,
-                        onEnterBack: () => floatingYear.innerText = year,
                     }
                 });
             });
