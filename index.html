@@ -238,11 +238,11 @@
             item.setAttribute('data-index', index);
 
             const icons = {
-                'policy': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
-                'institution': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>`,
-                'network': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
-                'foundation': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16V15m-1.292-1.292a1.292 1.292 0 101.825 1.825 1.292 1.292 0 00-1.825-1.825z"></path></svg>`,
-                'digital': `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`
+                'policy': `<svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>`,
+                'institution': `<svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>`,
+                'network': `<svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>`,
+                'foundation': `<svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M12 16V15m-1.292-1.292a1.292 1.292 0 101.825 1.825 1.292 1.292 0 00-1.825-1.825z"></path></svg>`,
+                'digital': `<svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>`
             };
             const currentIcon = icons[eventData.category_icon] || icons['policy'];
 
@@ -258,18 +258,18 @@
                     <div class="${cardBaseClass} ${cardModernClass} ${cardHighClass} hover:shadow-2xl hover:-translate-y-1 max-w-4xl">
                         
                         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-10">
-                            <div class="flex items-center gap-6">
-                                <div class="w-10 h-10 md:w-12 md:h-12 rounded-2xl flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-primary/10 group-hover:text-primary transition-all duration-500 scale-110">
+                            <div class="flex items-center gap-3">
+                                <div class="w-8 h-8 md:w-10 md:h-10 rounded-xl flex items-center justify-center bg-slate-50 text-slate-300 group-hover:bg-primary/10 group-hover:text-primary transition-all duration-500 scale-110">
                                     ${currentIcon}
                                 </div>
-                                <span class="text-2xl sm:text-3xl md:text-5xl font-serif font-black text-slate-900 tracking-tighter leading-none">${eventData.year}</span>
+                                <span class="text-sm sm:text-base md:text-lg font-serif font-black text-slate-900 tracking-tighter leading-none">${eventData.year}</span>
                             </div>
                             <span class="text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 bg-slate-100 px-3 py-1 rounded-full whitespace-nowrap">
                                 ${eventData.category}
                             </span>
                         </div>
                         
-                        <h3 class="text-lg sm:text-xl md:text-3xl font-bold text-slate-900 mb-6 leading-[1.2] group-hover:text-primary transition-colors">
+                        <h3 class="text-base sm:text-lg md:text-xl font-bold text-slate-900 mb-6 leading-[1.2] group-hover:text-primary transition-colors">
                             ${eventData.url ? `<a href="${eventData.url}" target="_blank" class="hover:underline underline-offset-8 decoration-1 inline-flex items-center gap-1.5 align-middle">
                                 <span>${eventData.title}</span>
                                 <svg class="w-4 h-4 md:w-5 md:h-5 text-slate-300 group-hover:text-primary transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
@@ -281,7 +281,7 @@
                         </p>
                         
                         <div class="mt-4 flex flex-wrap gap-2 group-hover:opacity-100 transition-opacity">
-                            <span class="text-[10px] font-black tracking-widest text-primary uppercase">#${eventData.tag}</span>
+                            <span class="text-[11px] font-black tracking-widest text-slate-500 uppercase">#${eventData.tag}</span>
                         </div>
                     </div>
                 </div>
