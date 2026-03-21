@@ -67,6 +67,17 @@
     },
     {
         "category_icon": "foundation",
+        "year": 2022,
+        "category": "政策・制度",
+        "title": "スタートアップ育成5か年計画の策定",
+        "url": "https://www.cas.go.jp/jp/seisaku/atarashii_sihonsyugi/pdf/su_plan.pdf",
+        "description": "「新しい資本主義」の柱として、大学発ディープテック・スタートアップへの支援や、アントレプレナーシップ教育の抜本的拡大が国策として明記された。",
+        "tag": "スタートアップ振興",
+        "importance": "high",
+        "era_phase": "Innovation"
+    },
+    {
+        "category_icon": "foundation",
         "year": 2021,
         "category": "政策・制度",
         "title": "科学技術・イノベーション基本法への改正施行",
@@ -154,6 +165,17 @@
         "era_phase": "Transformation"
     },
     {
+        "category_icon": "network",
+        "year": 2018,
+        "category": "組織・ネットワーク",
+        "title": "卓越大学院プログラムの開始",
+        "url": "https://www.jsps.go.jp/j-takuetsu/",
+        "description": "産学官が連携し、新たな知の創造と活用を牽引する卓越した博士人材（プロフェッショナル）を育成する5年一貫の学位プログラムを構築・支援する事業。",
+        "tag": "高度人材育成",
+        "importance": "normal",
+        "era_phase": "Transformation"
+    },
+    {
         "category_icon": "foundation",
         "year": 2016,
         "category": "政策・制度",
@@ -184,6 +206,17 @@
         "description": "高額な研究設備の「3C（Campus-wide, Center-oriented, Core-facility）」共用スキームを提示。組織的な共用体制への転換を促し、若手研究者の環境改善を目指した。",
         "tag": "設備共用",
         "importance": "normal",
+        "era_phase": "Transformation"
+    },
+    {
+        "category_icon": "foundation",
+        "year": 2016,
+        "category": "政策・制度",
+        "title": "産学官連携による共同研究強化のためのガイドライン策定",
+        "url": "https://www.mext.go.jp/a_menu/shinkou/sangaku/1380598.htm",
+        "description": "文科省と経産省が共同策定。従来の属人的な連携から、間接経費の適切化や知財マネジメントを含む「組織対組織」の本格的な産学連携へ転換を促した実務上の大転換点。",
+        "tag": "組織的連携へ",
+        "importance": "high",
         "era_phase": "Transformation"
     },
     {
@@ -261,6 +294,17 @@
         "description": "全国の最先端のナノテク設備を外部へ開放し、産学官の共用を促進。分野融合やイノベーションの土壌となる機器共用ネットワークを構築した。",
         "tag": "機器共用",
         "importance": "normal",
+        "era_phase": "Transformation"
+    },
+    {
+        "category_icon": "network",
+        "year": 2012,
+        "category": "組織・ネットワーク",
+        "title": "特定研究成果活用支援事業（国立大学発VCの設立）開始",
+        "url": "https://www.mext.go.jp/a_menu/koutou/houjin/1413812_00001.htm",
+        "description": "いわゆる「官民イノベーションプログラム」。東大、京大、阪大、東北大に政府資金を出資して大学発VCの設立を促し、大学の知を利用した起業・インキュベーション支援を本格化させた。",
+        "tag": "大学発VC設立",
+        "importance": "high",
         "era_phase": "Transformation"
     },
     {
@@ -448,6 +492,17 @@
         "description": "国内の学術雑誌を電子化し世界へ発信するプラットフォーム。電子ジャーナル化の潮流に対応し、日本の研究成果の国際的な視認性を劇的に向上させた。",
         "tag": "電子ジャーナル",
         "importance": "normal",
+        "era_phase": "Origin"
+    },
+    {
+        "category_icon": "foundation",
+        "year": 1999,
+        "category": "政策・制度",
+        "title": "日本版バイ・ドール条項（産業活力再生特別措置法第30条）の制定",
+        "url": "https://www.meti.go.jp/policy/innovation_corp/bayh-dole.html",
+        "description": "国の資金による研究開発から生じた特許等の知的財産権を、一定の条件下で受託者（大学等）に帰属させる制度。大学の知財創出と技術移転の強力なインセンティブとなった。",
+        "tag": "知財化の夜明け",
+        "importance": "high",
         "era_phase": "Origin"
     },
     {
