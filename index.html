@@ -114,7 +114,7 @@
     <nav
         class="sticky top-0 z-50 w-full bg-[#f8fafc]/80 backdrop-blur-2xl border-b border-slate-200/40 py-4">
         <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8">
-            <div class="w-full flex items-center gap-4 overflow-x-auto hide-scrollbar md:flex-1">
+            <div class="hidden md:flex items-center gap-4 overflow-x-auto hide-scrollbar flex-1">
                 <button data-cat="All"
                     class="filter-btn active flex-shrink-0 px-2 py-1 text-sm font-bold transition-all duration-300 text-slate-900">全て</button>
                 <button data-cat="基本計画"
@@ -129,16 +129,29 @@
                     class="filter-btn flex-shrink-0 px-2 py-1 text-sm font-semibold transition-all duration-300 text-slate-400 hover:text-slate-900">その他</button>
             </div>
             <div class="relative w-full md:w-80">
-                <input type="text" id="keyword-search" placeholder="ここから検索"
-                    class="w-full bg-slate-200/50 border-none rounded-2xl px-6 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all placeholder-slate-400 font-medium">
-                <svg class="absolute right-5 top-3.5 w-4 h-4 text-slate-400" fill="none" stroke="currentColor"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
+                <input type="text" id="keyword-search" placeholder="検索"
+                    class="w-full bg-slate-200/50 border-none rounded-2xl px-6 py-3 text-xs focus:outline-none focus:ring-2 focus:ring-primary/30 focus:bg-white transition-all placeholder-slate-400 font-medium pr-12">
+                <div class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-2">
+                    <button id="search-clear" class="hidden p-2 text-slate-400 hover:text-primary transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
             </div>
         </div>
     </nav>
+
+    <!-- Mobile Bottom Navigation (Categories) -->
+    <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] w-[95%] max-w-sm md:hidden">
+        <div class="bg-white/80 backdrop-blur-2xl border border-slate-200/40 rounded-full px-4 py-2 shadow-2xl flex items-center gap-2 overflow-x-auto hide-scrollbar">
+            <button data-cat="All" class="filter-btn active px-4 py-1.5 text-[10px] font-black uppercase tracking-widest whitespace-nowrap rounded-full transition-all duration-300">全て</button>
+            <button data-cat="基本計画" class="filter-btn px-4 py-1.5 text-[10px] font-black uppercase tracking-widest whitespace-nowrap rounded-full transition-all duration-300 text-slate-400">基本計画</button>
+            <button data-cat="政策・制度" class="filter-btn px-4 py-1.5 text-[10px] font-black uppercase tracking-widest whitespace-nowrap rounded-full transition-all duration-300 text-slate-400">政策・制度</button>
+            <button data-cat="組織・ネットワーク" class="filter-btn px-4 py-1.5 text-[10px] font-black uppercase tracking-widest whitespace-nowrap rounded-full transition-all duration-300 text-slate-400">組織</button>
+            <button data-cat="システム基盤" class="filter-btn px-4 py-1.5 text-[10px] font-black uppercase tracking-widest whitespace-nowrap rounded-full transition-all duration-300 text-slate-400">基盤</button>
+            <button data-cat="その他" class="filter-btn px-4 py-1.5 text-[10px] font-black uppercase tracking-widest whitespace-nowrap rounded-full transition-all duration-300 text-slate-400">他</button>
+        </div>
+    </div>
 
     <!-- Main Content -->
     <main class="max-w-6xl mx-auto px-4 py-20 relative min-h-screen">
@@ -193,6 +206,7 @@
         const eventsWrapper = document.getElementById('events-wrapper');
         const floatingYear = document.getElementById('floating-year');
         const keywordSearch = document.getElementById('keyword-search');
+        const searchClear = document.getElementById('search-clear');
         const filterBtns = document.querySelectorAll('.filter-btn');
 
         let allEventsData = [];
@@ -367,24 +381,47 @@
             setTimeout(initGSAP, 100);
         }
 
-        // Filtering
+        // Filtering & Sync
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                const targetCat = btn.getAttribute('data-cat');
+                currentFilter = targetCat;
+
+                // Sync all buttons (Desktop & Mobile) with this category
                 filterBtns.forEach(b => {
-                    b.classList.remove('active', 'text-slate-900');
-                    b.classList.add('text-slate-400');
+                    const bCat = b.getAttribute('data-cat');
+                    if (bCat === targetCat) {
+                        b.classList.add('active', 'text-slate-900');
+                        b.classList.remove('text-slate-400');
+                    } else {
+                        b.classList.remove('active', 'text-slate-900');
+                        b.classList.add('text-slate-400');
+                    }
                 });
 
-                btn.classList.add('active', 'text-slate-900');
-                btn.classList.remove('text-slate-400');
-
-                currentFilter = btn.getAttribute('data-cat');
                 renderTimeline();
-                btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                // Scroll the desktop button into view if applicable
+                if (btn.classList.contains('flex-shrink-0')) {
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                }
             });
         });
 
-        keywordSearch.addEventListener('input', renderTimeline);
+        keywordSearch.addEventListener('input', () => {
+            if (keywordSearch.value.length > 0) {
+                searchClear.classList.remove('hidden');
+            } else {
+                searchClear.classList.add('hidden');
+            }
+            renderTimeline();
+        });
+
+        searchClear.addEventListener('click', () => {
+            keywordSearch.value = '';
+            searchClear.classList.add('hidden');
+            renderTimeline();
+            keywordSearch.focus();
+        });
 
         // Data Loading
         async function loadData() {
