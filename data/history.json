@@ -176,11 +176,22 @@
         "era_phase": "Transformation"
     },
     {
+        "category_icon": "digital",
+        "year": 2018,
+        "category": "システム基盤",
+        "title": "科学技術・イノベーション創出活性化法の改正施行",
+        "url": "https://elaws.e-gov.go.jp/document?lawid=420AC1000000063",
+        "description": "研究開発法人等の出資機能強化や、若手研究者の処遇改善、クロスアポイントメントの促進などを法的に位置づけ、イノベーション創出の一体的な推進を図った。",
+        "tag": "法的一体化",
+        "importance": "normal",
+        "era_phase": "Transformation"
+    },
+    {
         "category_icon": "foundation",
         "year": 2016,
         "category": "政策・制度",
         "title": "URAスキル標準の策定",
-        "url": "https://www.mext.go.jp/a_menu/jinzai/ura/detail/1420228.htm",
+        "url": "https://www.mext.go.jp/a_menu/jinzai/ura/1420228.htm",
         "description": "文部科学省の支援により、URAに求められる業務内容とスキルの標準ガイドラインが策定され、全国的な能力開発の指標となる。",
         "tag": "人材育成",
         "importance": "normal",
@@ -190,7 +201,7 @@
         "category_icon": "policy",
         "year": 2016,
         "category": "基本計画",
-        "title": "第5期科学技術基本計画の策定（Society 5.0の提唱）",
+        "title": "第5期科学技術基本計画の策定",
         "url": "https://www8.cao.go.jp/cstp/kihonkeikaku/5honbun.html",
         "description": "サイバー空間とフィジカル空間が融合した新たな社会「Society 5.0」を提唱。DXによる社会変革を先導し、知識の集約による価値創造の最大化を目指した。",
         "tag": "Society 5.0",
@@ -223,7 +234,7 @@
         "category_icon": "digital",
         "year": 2015,
         "category": "システム基盤",
-        "title": "RA協議会（現：一般社団法人）設立",
+        "title": "RA協議会（現：一般社団法人RA協議会）設立",
         "url": "https://www.rman.jp/",
         "description": "日本で唯一のRA/URA実務者のネットワーク組織が誕生。研究マネジメントの職能確立と普及を担う。",
         "tag": "ネットワーク",
@@ -253,6 +264,17 @@
         "era_phase": "Transformation"
     },
     {
+        "category_icon": "network",
+        "year": 2014,
+        "category": "組織・ネットワーク",
+        "title": "クロスアポイントメント制度の導入",
+        "url": "https://www.mext.go.jp/a_menu/jinzai/crossap/index.htm",
+        "description": "大学、研究機関、民間企業の間で、職員が各機関との雇用契約の下で役割を分担する仕組み。産学官の「知」と「人」の流動性を高める基盤となった。",
+        "tag": "人材流動化",
+        "importance": "normal",
+        "era_phase": "Transformation"
+    },
+    {
         "category_icon": "foundation",
         "year": 2014,
         "category": "政策・制度",
@@ -272,6 +294,17 @@
         "description": "研究不正の深刻化を受け、捏造・改ざん・盗用への厳格な対応方針を提示。各機関への倫理教育の義務付けなど、公正な研究活動の維持に向けた体制を整備した。",
         "tag": "研究倫理",
         "importance": "normal",
+        "era_phase": "Transformation"
+    },
+    {
+        "category_icon": "foundation",
+        "year": 2014,
+        "category": "政策・制度",
+        "title": "総合科学技術・イノベーション会議（CSTI）への改編",
+        "url": "https://www8.cao.go.jp/cstp/index.html",
+        "description": "「総合科学技術会議（CSTP）」に「イノベーション」を明示的に追加。司令塔機能を強化し、科学技術振興から社会実装までを一気通貫で推進する体制へ移行。",
+        "tag": "司令塔強化",
+        "importance": "high",
         "era_phase": "Transformation"
     },
     {
@@ -432,6 +465,17 @@
         "category_icon": "network",
         "year": 2003,
         "category": "組織・ネットワーク",
+        "title": "社会技術研究開発センター（RISTEX）の設立",
+        "url": "https://www.jst.go.jp/ristex/",
+        "description": "JST内に設置。社会の具体的な課題（安全、倫理等）に対し、自然科学と人文・社会科学の知見を融合させて解決を目指す「社会技術」の公的な支援が開始された。",
+        "tag": "社会課題解決",
+        "importance": "normal",
+        "era_phase": "Origin"
+    },
+    {
+        "category_icon": "network",
+        "year": 2003,
+        "category": "組織・ネットワーク",
         "title": "独立行政法人科学技術振興機構（JST）の設立",
         "url": "https://www.jst.go.jp/all/about/enkaku.html",
         "description": "科学技術振興事業団を改編。戦略的創造研究推進事業などを通じ、政策課題に即した基礎研究の推進や科学技術情報の流通、産学連携支援を担う中核機関となった。",
@@ -537,5 +581,49 @@
         "tag": "科学技術立国",
         "importance": "high",
         "era_phase": "Origin"
+    }
+    {
+        "category_icon": "policy",
+        "year": 1986,
+        "category": "基本計画",
+        "title": "科学技術政策大綱の策定",
+        "url": "https://www.mext.go.jp/b_menu/hakusho/nc/t19860328001/t19860328001.html",
+        "description": "1995年の基本法成立以前における、初の閣議決定による科学技術政策の長期的指針。基礎研究の振興と国際協力の推進が重点項目として掲げられた。",
+        "tag": "長期指針",
+        "importance": "normal",
+        "era_phase": "Legacy"
+    },
+    {
+        "category_icon": "foundation",
+        "year": 1956,
+        "category": "政策・制度",
+        "title": "科学技術庁（STA）の設置",
+        "url": "https://www.mext.go.jp/b_menu/hakusho/html/hpab200101/hpab200101_2_005.html",
+        "description": "科学技術行政の総合的調整と、原子力・宇宙等の巨大科学の推進を担う行政機関として誕生。現在の文部科学省の片翼となる。 ",
+        "tag": "行政司令塔",
+        "importance": "high",
+        "era_phase": "Legacy"
+    },
+    {
+        "category_icon": "foundation",
+        "year": 1948,
+        "category": "政策・制度",
+        "title": "日本学術会議（SCJ）の創設",
+        "url": "https://www.scj.go.jp/ja/info/outline/history.html",
+        "description": "「科学者の内外に対する代表機関」として、内閣総理大臣の所轄の下に設立。科学の振興と行政への反映、国際的な学術交流を目的とした。",
+        "tag": "科学者の代表",
+        "importance": "normal",
+        "era_phase": "Legacy"
+    },
+    {
+        "category_icon": "network",
+        "year": 1932,
+        "category": "組織・ネットワーク",
+        "title": "日本学術振興会（JSPS）の設立",
+        "url": "https://www.jsps.go.jp/aboutus/index.html",
+        "description": "天皇陛下の御下賜金を基に設立された、日本を代表する研究助成機関。学術研究の振興、研究者養成、国際交流など、日本の研究支援の精神的な原点。",
+        "tag": "研究支援の原点",
+        "importance": "high",
+        "era_phase": "Legacy"
     }
 ]
